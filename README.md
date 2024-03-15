@@ -1,2 +1,2 @@
 # Xsport-Fitness
-Proyecto hecho por David Blanco y Alex Pérez
+Proyecto hecho por David Blanco y Oscar Montilla
