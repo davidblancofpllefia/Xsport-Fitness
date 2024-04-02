@@ -4,7 +4,7 @@ export default {
     <div class="imagenFondo d-flex align-items-center">
                 <div class="container">
                     <div class="textoInicio bg-light p-4 bg-opacity-75">
-                        <h1 class="fw-bolder my-3">lorem ipsum</h1>
+                        <h1 class="fw-bolder my-3">¡Bienvenido!</h1>
                         <p class="fw-normal">
                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, blanditiis asperiores adipisci enim repellendus numquam officia temporibus pariatur dolorum laborum officiis iure eum qui aliquid error vitae, consequatur ipsum exercitationem!
                         </p>
@@ -90,4 +90,5 @@ export default {
                 </div>
             </div>
     `
+
 }

@@ -24,7 +24,7 @@ export const login = {
                     <hr>
                     <div class="pie-form">
                         <a href="#">¿Perdiste tu contraseña?</a>
-                        <a href="#">¿No tienes Cuenta? Registrate</a>
+                        <a href="#" id="botonRegistro">¿No tienes Cuenta? Registrate</a>
                         <hr>
                         <a href="#">« Volver</a>
                     </div>

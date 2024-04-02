@@ -1,3 +1,4 @@
+import { login } from "../vistas/login";
 export const header = {
     template: //html
     `
@@ -48,7 +49,7 @@ export const header = {
                                     </li>
                                     <li><a class="dropdown-item" href="#">Otra acción</a></li>
                                     <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                                    <li><button id="botonSesion" class="dropdown-item" href="#">Cerrar sesión</button></li>
                                 </ul>
                             </li>
                         </ul>
@@ -118,5 +119,26 @@ export const header = {
             </div>
         </header>
         </body>
-    `
+    `,
+
+    script: () => {
+       // Captura del elemento <li> con el enlace dentro
+     const elementoCerrarSesion = document.querySelector('li > a.dropdown-item[href="#"]');
+
+// Verificación de si se encontró el elemento
+if (elementoCerrarSesion) {
+    // Acción a realizar cuando se encuentre el elemento
+    elementoCerrarSesion.addEventListener('click', function(event) {
+        // Evita que el enlace realice su acción por defecto (navegar a '#')
+        event.preventDefault();
+        
+        // Aquí puedes agregar tu lógica para cerrar la sesión
+        console.log('Cerrando sesión...');
+        // Por ejemplo, puedes llamar a una función que maneje el cierre de sesión
+        // cerrarSesion();
+    });
+} else {
+    console.log('No se encontró el elemento para cerrar sesión.');
+}
+}
 }
