@@ -13,7 +13,7 @@ export default {
 </div>
 <div class="container mt-4">
    <!-- Buscador -->
-   <div class="input-group flex-nowrap">
+   <div class="input-group flex-nowrap w-50">
    <span class="input-group-text" id="addon-wrapping"
      ><i class="bi bi-search"></i
    ></span>

@@ -6,14 +6,14 @@ export default {
   <div class="container">
   <h1 class="mt-5">Edición de proyecto</h1>
   <div class="d-flex justify-content-end">
-    <bottom id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left router-link">
-      Volver</bottom
+    <button id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left router-link">
+      Volver</button
     >
   </div>
   <form novalidate id="formularioEditarProyecto" action="" class="form">
     <div class="row mt-2">
       <div class="col-12 col-md-4 pt-2 mb-3">
-        <img id="imagenJuego" src="images/juego.jpg" alt="" class="img-fluid" />
+        <img id="imagenEjercicio" src="images/flexion.jpg" alt="" class="img-fluid" />
         <label class="form-label mt-2" for="urlImagen"
           ><strong>URL imagen: </strong></label
         >
@@ -34,7 +34,7 @@ export default {
         <label class="form-label" for="nombre"><strong>Nombre: </strong></label>
         <input
           required
-          id="nombreJuego"
+          id="nombreEjercicio"
           type="text"
           value="Nombre Autor"
           class="form-control"
@@ -51,52 +51,25 @@ export default {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
         >
 
-        <!-- Estado -->
-        <label class="form-label mt-2" for="estado"
-          ><strong>Estado: </strong></label
+        <!-- Rutina recomendada -->
+        <label class="form-label mt-2" for="rutina"
+          ><strong>Rutina recomendada: </strong></label
         >
-        <select required id="estado" class="form-control">
-          <option value="Cerrado">Cerrado</option>  
-          <option value="En desarrollo">En desarrollo</option>
-        </select>
+        <textarea id="rutina" class="form-control" rows="4">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
+      >
         <div class="invalid-feedback">
           Debes definir un estado
         </div>
 
-        <!-- Fecha -->
-        <label class="form-label mt-2" for="fecha"
-          ><strong>Fecha: </strong></label
+        <!-- Beneficios -->
+        <label class="form-label mt-2" for="beneficios"
+          ><strong>Beneficios: </strong></label
         >
-        <input id="fecha" type="date" class="form-control"  />
-        <div class="invalid-feedback">
-          El formato no es correcto
-        </div>
-
-        <!-- Enlace al proyecto -->
-        <label class="form-label mt-2" for="enlace"
-          ><strong>Enlace: </strong></label
-        >
-        <input
-          id="enlace"
-          type="url"
-          class="form-control"
-          value="http://enlace.com"
-        />
-        <div class="invalid-feedback">
-          No es una url correcta
-        </div>
-
-        <!-- Repositorio -->
-        <label class="form-label mt-2" for="repositorio"
-          ><strong>Repositorio: </strong></label
-        >
-        <input
-          id="repositorio"
-          type="text"
-          class="form-control"
-          value="user.github.com/123456"
-        />
-
+        <textarea id="rutina" class="form-control" rows="4">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea
+      >
+      
         <!-- Submit -->
         <input
           id="subirProyecto"
@@ -120,20 +93,14 @@ export default {
     const fechaCorta = fecha.split('T')[0]
 
     // Insertamos los datos en el formulario
-    document.querySelector('#imagenJuego').setAttribute('src', proyecto.imagen)
-    document.querySelector('#urlImagen').value = proyecto.imagen
-    document.querySelector('#nombreJuego').value = proyecto.nombre
-    document.querySelector('#descripcion').value = proyecto.descripcion
-    document.querySelector('#estado').value = proyecto.estado
-    document.querySelector('#fecha').value = fechaCorta
-    console.log(fechaCorta)
-    document.querySelector('#enlace').value = proyecto.enlace
-    document.querySelector('#repositorio').value = proyecto.repositorio
+    document.querySelector('#imagenEjercicio').setAttribute('src', ejercicio.imagen)
+    document.querySelector('#urlImagen').value = ejercicio.imagen
+    document.querySelector('#nombreEjercicio').value = ejercicio.nombre
+    document.querySelector('#descripcion').value = ejercicio.descripcion
+    document.querySelector('#estado').value = ejercicio.estado
+   
 
-    // Boton volver atras
-    document.querySelector('#botonVolver').addEventListener('click', () => {
-      window.history.back()
-    })
+    
 
     // Actualización de la imagen a partir de la urlImagen
     // Capturamos input
@@ -161,6 +128,10 @@ export default {
         //* ** ENVIAMOS DATOS A LA BASE DE DATOS */
         enviaDatos()
       }
+    })
+    // Boton volver atras
+    document.querySelector('#botonVolver').addEventListener('click', () => {
+      window.location = `#/proyectoDetalle/`
     })
 
     // Función para enviar datos a la base de datos
