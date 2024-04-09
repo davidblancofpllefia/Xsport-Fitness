@@ -1,144 +1,109 @@
-import { login } from "../vistas/login";
+// importamos la función ls del archivo funciones
+import { User } from '../bd/user'
+import { ls } from '../componentes/funciones'
+import { editarPerfil } from './editPerfil'
+import { menuRol, menuUsuario } from './menus'
+
 export const header = {
-    template: //html
-    `
-    <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
-    <header>
-            <nav class="navbar navbar-expand-lg fixed-top">
-                <div class="container">
-                    <div class="imgnav">
-                        <a class="navbar-brand" href="../../index.html"
-                        ><img
-                            src="../img/logo.png"
-                            alt="Logo Xsport Fitness"
-                            class="d-inline-block  object-fit-cover"
-                        /></a
-                    >
-                    </div>
-                   
-                        <!-- Menú ROL -->
-                        <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active text-light " aria-current="page" href="#">PROYECTOS</a>
-                            </li>
-                            <li class="nav-item dropdown ">
-                                <a
-                                    class="nav-link dropdown-toggle text-light"
-                                    href="#"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    <img src="../img/iconoUsuario.svg" alt="" width="30" />
-                                </a>
-                                <!-- Menú usuario -->
-                                <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-                                    <li class=" text-center p-2">
-                                        <p>user@email.com</p>
-                                    </li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                        <button
-                                            type="button"
-                                            class="dropdown-item"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                        >
-                                            Editar perfil
-                                        </button>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Otra acción</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><button id="botonSesion" class="dropdown-item" href="#">Cerrar sesión</button></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+  template: // html
+  `
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand " href="#/home"
+        ><img
+          src="images/logo.png"
+          alt=""
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
 
-            <!-- VEntana edición perfil -->
-
-            <!-- Modal -->
-            <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
-            <!-- Formulario de edición de perfil -->
-                <form action="">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content ">
-                            <div class="modal-header container-lg ">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                    Editar perfil
-                                </h1>
-                            </div>
-                            <div class="container d-flex row">
-                                <div class="mx-5 col-6">     
-                                <label for="nombre" class="form-label mt-5 ">Nombre:</label>
-                                <input required id="nombre" type="text" class="form-control" />
-                                
-
-                                <label for="apellidos" class="form-label mt-3">Apellidos:</label>
-                                <input id="apellidos" type="text" class="form-control" />
-                                
-
-                                <label for="email" class="form-label mt-3">Email:</label>
-                                <input required id="email" type="email" class="form-control" />
-                                
-
-                                <label for="pass" class="form-label mt-3">Contraseña:</label>
-                                <input required id="pass" type="password" class="form-control mb-5" />
-                                </div>
-                                <div class="col-4 ">
-                                <button class="btn botonUsuario"><img src="../img/iconoUsuario.svg" alt=""></button>
-                                <i class="bi bi-pencil float-end bg-primary text-light p-3 rounded rounded-circle  iconoImagen"></i>
-                                <label for="imagen" class="form-label mt-3 d-flex">URL imagen:</label>
-                                            <input
-                                                id="imagen"
-                                                type="url"
-                                                class="form-control"
-                                                value=""
-                                            />
-                                </div>
-                               </div>
-                               <div class="modal-footer d">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Cancelar
-                                </button>
-                                <button type="button" class="btn btn-primary">Guardar cambios</button>
-                            </div>
-                            </div> 
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </header>
-        </body>
-    `,
-
-    script: () => {
-       // Captura del elemento <li> con el enlace dentro
-     const elementoCerrarSesion = document.querySelector('li > a.dropdown-item[href="#"]');
-
-// Verificación de si se encontró el elemento
-if (elementoCerrarSesion) {
-    // Acción a realizar cuando se encuentre el elemento
-    elementoCerrarSesion.addEventListener('click', function(event) {
-        // Evita que el enlace realice su acción por defecto (navegar a '#')
-        event.preventDefault();
+        Xsport Fitness</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
-        // Aquí puedes agregar tu lógica para cerrar la sesión
-        console.log('Cerrando sesión...');
-        // Por ejemplo, puedes llamar a una función que maneje el cierre de sesión
-        // cerrarSesion();
-    });
-} else {
-    console.log('No se encontró el elemento para cerrar sesión.');
-}
-}
+
+        <div id="menuRol"></div>
+        <div id="menuUsuario"></div>
+      </div>
+    </div>
+  </nav>
+  <div id="modal"></div>
+  `,
+  script: () => {
+    console.log('Header cargado')
+    // Simulamos el inicio de sesión de un usuario
+    // ls.setUsuario({ email: 'chafardera@gmial.com', rol: 'registrado' })
+
+    // Cargamos la ventana modal para editar perfil
+    document.querySelector('#modal').innerHTML = editarPerfil.template
+    // Y ejecutamos su lógica
+    editarPerfil.script()
+    const rolUsuario = ls.getUsuario().rol
+    switch (rolUsuario) {
+      case 'registrado':
+        // menú rol
+        document.querySelector('#menuRol').innerHTML = menuRol.templateRegistrado
+        // menú usuario
+        document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateRegistrado
+        break
+      case 'desarrollador':
+        // menú rol
+        document.querySelector('#menuRol').innerHTML = menuRol.templateDesarrollador
+        // menú usuario
+        document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateDesarrollador
+        break
+      case 'admin':
+        // menú rol
+        document.querySelector('#menuRol').innerHTML = menuRol.templateAdmin
+        // menú usuario
+        document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateAdmin
+        break
+      default : // Para usuarios anónimos
+        // menú rol
+        document.querySelector('#menuRol').innerHTML = menuRol.templateAnonimo
+        // menú usuario - No debe aparecer nada
+        document.querySelector('#menuUsuario').innerHTML = ''
+        break
+    }
+
+    // Y actualizamos los datos de menu de usuario si es que se está mostrando
+    try {
+      // email y rol
+      document.querySelector('#emailUserMenu').innerHTML = ls.getUsuario().email
+      document.querySelector('#rolUserMenu').innerHTML = ls.getUsuario().rol
+      // para la imagen de avatar (avatar.png si el campo está vacío)
+      const imagen = ls.getUsuario().avatar === '' ? 'images/avatar.svg' : ls.getUsuario().avatar
+      document.querySelector('#avatarMenu').setAttribute('src', imagen)
+    } catch (error) {
+      console.log('El usuario no está registrado y no tiene menú de usuario')
+    }
+
+    // Cerrar sesión
+    // Capturamos clic sobre el item de cerrar sesión
+    document.querySelector('header').addEventListener('click', (e) => {
+      if (e.target.classList.contains('cerrarSesion')) {
+        e.preventDefault()
+
+        // Cerramos sesión en la bd
+        User.logout()
+        // Borramos el localstorage
+        ls.setUsuario('')
+        // Cargamos la pagina home
+        window.location = '#/home'
+        header.script()
+      }
+    })
+  }
 }

@@ -11,6 +11,7 @@ export default {
   },
   build: {
     emptyOutDir: true, // Esto vaciará el directorio de salida antes de construir
+    
     rollupOptions: {
         /*
             Opciones de configuración de Rollup externas, serán mergeadas con la configuracion
@@ -27,6 +28,7 @@ export default {
     outDir: path.resolve(__dirname, 'dist'),
     minify: false, //( Si no se quiere minificar el build) https://vitejs.dev/config/#build-minify (aplica solo a los JS no CSS)
 },
+publicDir: 'assets',
   server: {
     /*port: 8080,*/
     hot: true
