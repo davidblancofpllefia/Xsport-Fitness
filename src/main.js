@@ -21,3 +21,4 @@ document.querySelector('footer').innerHTML = footer.template
 enrutador.observadorRutas()
 // Cargamos la página home
 window.location = '#/home'
+

@@ -1,3 +1,5 @@
+import { supabase } from "../bd/supabase";
+
 export const enrutador = {
 
   // Objeto (diccionario) con todas las rutas y su vista asociada
