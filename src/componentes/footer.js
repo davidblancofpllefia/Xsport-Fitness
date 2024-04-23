@@ -6,9 +6,12 @@ export const footer = {
                     <div class=" navfooter">
                         <a class="navbar-brand" href="../index.html"
                         ><img
-                            src="../img/logoFondoDark.png"
+                            src="images/logo.png"
                             alt="Logo Xsport Fitness"
-                            class="d-inline-block  object-fit-cover"
+                            alt=""
+                            width="30"
+                            height="24"
+                            class="d-inline-block align-text-top"
                          />
                         <p class="text-light d-inline ">Xsport Fitness</p>
                         </a>

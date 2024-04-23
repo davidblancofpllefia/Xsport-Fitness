@@ -1,38 +1,10 @@
 import { proyectos } from '../bd/datosPrueba'
+import { supabase } from '../bd/supabase'
 
 export default {
   template: // html
   `
-  <div class="container">
-  <h1 class="mt-5">Ejercicio 1</h1>
-  <div class="d-flex justify-content-end">
-      <bottom class="btn btn-outline-secondary mt-5">
-          <i class="bi bi-arrow-bar-left" style="font-size: 1em;"></i>
-          Volver</bottom>
-  </div>
-  
-  <div class="row mt-2">
-      <div class="col-12 col-md-4 mb-3">
-          <img src="images/flexion.jpg" alt="" class="img-fluid">
-      </div>
-      <div class="col-12 col-md-8">
-          <p>
-              <p><strong>Nombre: </strong><span id="nombre">FLEXIÓN</span></p>
-              <p><strong>Descripción: </strong><span id="nombre">Las flexiones, también conocidas como lagartijas o push-ups, son un ejercicio de fuerza fundamental que trabaja diversos grupos musculares. Este ejercicio se realiza en posición horizontal, apoyando las manos y los pies en el suelo. La técnica básica consiste en bajar y subir el cuerpo mediante la flexión y extensión de los brazos, fortaleciendo principalmente los músculos del pecho, hombros, tríceps y abdomen.</span></p>
-              <p><strong>Rutina Recomendada: </strong><span id="nombre">Incorpora flexiones en tu rutina de entrenamiento 2-3 veces por semana. Comienza con un número moderado de repeticiones e incrementa progresivamente a medida que ganas fuerza.
-
-                  Recuerda consultar a un profesional de la salud o un entrenador personal antes de iniciar cualquier nuevo programa de ejercicios, especialmente si tienes alguna condición médica preexistente.</span></p>
-          </p>
-          <p><strong>Beneficios:</strong><span id="nombre"></span></p>
-          <ul class="list-unstyled">
-              <li>Desarrollo de la fuerza en la parte superior del cuerpo.</li>
-              <li>Mejora de la resistencia muscular.</li>
-              <li>Fortalecimiento de los músculos del core.</li>
-              <li>Estimulación del sistema cardiovascular.</li>
-              <li>Ejercicio versátil, adaptable a diferentes niveles de condición física.</li>
-          </ul>
-      </div>
-  </div>
+  <div class="container" id="ejerciciosContainer">
   <div
       class="container fixed-bottom d-flex justify-content-end"
       style="padding: 0px 0px 100px 0px"
@@ -47,14 +19,46 @@ export default {
   
 </div>
   `,
-  script: (id) => {
-    console.log('Vista proyectoDetalle cargada')
-    console.log(proyectos, id)
+  script: async () => {
+    
+    let { data: ejercicios, error } = await supabase
+    .from('ejercicios')
+    .select('*');
 
-    // Simulamos la consulta a un proyecto por id filtrando de todos nuestros proyectos de prueba el que tiene el id que hemos recibido como parámetro
-    const proyectoArray = proyectos.filter(p => p.id === id)
-    const proyecto = proyectoArray[0]
+    if (error) {
+    console.error('Error obteniendo los ejercicios:', error.message);
+    return;
+}
+// Función para pintar los ejercicios en la vista
 
+const pintarDetalleEjercicios = () => {
+  const ejerciciosContainer = document.getElementById('ejerciciosContainer');
+  ejerciciosContainer.innerHTML = ejercicios.map(ejercicio => `
+      <h1 class="mt-5">${ejercicio.nombre}</h1>
+      <div class="d-flex justify-content-end">
+          <button class="btn btn-outline-secondary mt-5" id="botonVolver">
+              <i class="bi bi-arrow-bar-left" style="font-size: 1em;"></i>
+              Volver
+          </button>
+      </div>
+
+      <div class="row mt-2">
+          <div class="col-12 col-md-4 mb-3">
+              <img src="${ejercicio.foto}" alt="" class="img-fluid">
+          </div>
+          <div class="col-12 col-md-8">
+              <p>
+                  <strong>Nombre: </strong><span>${ejercicio.nombre}</span></p>
+              <p>
+                  <strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
+              <p>
+                  <strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+          </div>
+      </div>
+  `).join('');
+};
+
+    pintarDetalleEjercicios();
     // Modificamos el formato de la fecha quedandonos solo con el yy-mm-dd
     const fecha = proyecto.created_at
     const fechaCorta = fecha.split('T')[0]
