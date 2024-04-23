@@ -47,50 +47,67 @@ export default {
       }
 
       // Función para pintar los ejercicios en la vista
-      const pintarEjercicios = () => {
-          const ejerciciosContainer = document.getElementById('ejerciciosContainer');
-          ejerciciosContainer.innerHTML = ejercicios.map(ejercicio => `
-              <div class="card me-4 mb-4" style="width: 18rem;" data-id="${ejercicio.id}">
-                  <button type="button" class="btn p-0">
-                      <img src="${ejercicio.foto}" class="card-img-top" alt="...">
-                  </button>
-                  <div class="card-body p-2">
-                      <h5 class="card-title">${ejercicio.titulo}</h5>
-                  </div>
-              </div>
-          `).join('');
-      };
+const pintarEjercicios = () => {
+    const ejerciciosContainer = document.getElementById('ejerciciosContainer');
+    ejerciciosContainer.innerHTML = ejercicios.map(ejercicio => `
+        <div class="card me-4 mb-4" style="width: 18rem;" data-id="${ejercicio.id}">
+            <button type="button" class="btn p-0">
+                <img src="${ejercicio.foto}" class="card-img-top" alt="...">
+            </button>
+            <div class="card-body p-2">
+                <h5 class="card-title">${ejercicio.titulo}</h5>
+            </div>
+        </div>
+    `).join('');
 
-      // Pintamos los ejercicios al cargar la página
-      pintarEjercicios();
+    // Agregar listeners de clic a las nuevas tarjetas de ejercicio
+    ejerciciosContainer.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+            const id = card.dataset.id;
+            window.location = `#/proyectoDetalle/${id}`;
+        });
+    });
+};
 
-      // Función para filtrar los ejercicios
-      const filtrarEjercicios = (texto) => {
-          const ejerciciosContainer = document.getElementById('ejerciciosContainer');
-          ejerciciosContainer.innerHTML = ejercicios
-              .filter(ejercicio => ejercicio.titulo.toLowerCase().includes(texto.toLowerCase()))
-              .map(ejercicio => `
-                  <div class="card me-4 mb-4" style="width: 18rem;" data-id="${ejercicio.id}">
-                      <button type="button" class="btn p-0">
-                          <img src="${ejercicio.foto}" class="card-img-top" alt="...">
-                      </button>
-                      <div class="card-body p-2">
-                          <h5 class="card-title">${ejercicio.titulo}</h5>
-                      </div>
-                  </div>
-              `).join('');
-      };
+// Función para filtrar los ejercicios
+const filtrarEjercicios = (texto) => {
+    const ejerciciosContainer = document.getElementById('ejerciciosContainer');
+    ejerciciosContainer.innerHTML = ejercicios
+        .filter(ejercicio => ejercicio.titulo.toLowerCase().includes(texto.toLowerCase()))
+        .map(ejercicio => `
+            <div class="card me-4 mb-4" style="width: 18rem;" data-id="${ejercicio.id}">
+                <button type="button" class="btn p-0">
+                    <img src="${ejercicio.foto}" class="card-img-top" alt="...">
+                </button>
+                <div class="card-body p-2">
+                    <h5 class="card-title">${ejercicio.titulo}</h5>
+                </div>
+            </div>
+        `).join('');
 
-      // Listener para borrar el contenido del buscador
-      document.getElementById('borrarBuscador').addEventListener('click', () => {
-          document.getElementById('inputBusqueda').value = '';
-          pintarEjercicios();
-      });
+    // Agregar listeners de clic a las nuevas tarjetas de ejercicio
+    ejerciciosContainer.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+            const id = card.dataset.id;
+            window.location = `#/proyectoDetalle/${id}`;
+        });
+    });
+};
 
-      // Listener para filtrar ejercicios mientras se escribe en el buscador
-      document.getElementById('inputBusqueda').addEventListener('input', (event) => {
-          filtrarEjercicios(event.target.value);
-      });
+// Pintamos los ejercicios al cargar la página
+pintarEjercicios();
+
+// Listener para borrar el contenido del buscador
+document.getElementById('borrarBuscador').addEventListener('click', () => {
+    document.getElementById('inputBusqueda').value = '';
+    pintarEjercicios();
+});
+
+// Listener para filtrar ejercicios mientras se escribe en el buscador
+document.getElementById('inputBusqueda').addEventListener('input', (event) => {
+    filtrarEjercicios(event.target.value);
+});
+
 
       // Evento de clic para cada tarjeta de ejercicio
       document.querySelectorAll('.card').forEach(card => {
