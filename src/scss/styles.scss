@@ -1,0 +1,14 @@
+// Import all of Bootstrap's CSS
+@import "~bootswatch/dist/Sandstone/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/Sandstone/bootswatch";
+$bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+.imagenFondo{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.473),rgba(0, 0, 0, 0.473)),url(images/flexion.jpg);
+    /* background-position: center; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 700px;
+}
