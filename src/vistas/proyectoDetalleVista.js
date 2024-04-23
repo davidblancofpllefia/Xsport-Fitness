@@ -1,89 +1,73 @@
-import { proyectos } from '../bd/datosPrueba'
-import { supabase } from '../bd/supabase'
+import { supabase } from '../bd/supabase';
 
 export default {
-  template: // html
-  `
-  <div class="container" id="ejerciciosContainer">
-  <div
-      class="container fixed-bottom d-flex justify-content-end"
-      style="padding: 0px 0px 100px 0px"
-  >
-      <button
-          class="btn btn-success rounded-circle fs-3 shadow"
-          style="width: 50px"
-      >
-          <i class="bi bi-pencil"></i>
-      </button>
-  </div>
-  
-</div>
+  template: `
+    <div class="container" id="ejercicioDetalleContainer">
+      <!-- Contenido del ejercicio detallado se inyectará aquí -->
+    </div>
   `,
   script: async () => {
-    
+    const segments = window.location.hash.split('/'); // Dividir la URL en segmentos
+    const idString = segments[segments.length - 1]; // Obtener el último segmento que debería contener el ID
+    const id = parseInt(idString); // Convertir el ID a un número entero
+
+    if (isNaN(id)) {
+        console.error('ID no válido:', idString);
+        // Podemos redirigir al usuario a una página de error o simplemente mostrar un mensaje de error
+        return;
+    }
+
+    // Obtener los datos de todos los ejercicios desde Supabase
     let { data: ejercicios, error } = await supabase
-    .from('ejercicios')
-    .select('*');
+        .from('ejercicios')
+        .select('*');
 
     if (error) {
-    console.error('Error obteniendo los ejercicios:', error.message);
-    return;
-}
-// Función para pintar los ejercicios en la vista
+        console.error('Error obteniendo los ejercicios:', error.message);
+        return;
+    }
 
-const pintarDetalleEjercicios = () => {
-  const ejerciciosContainer = document.getElementById('ejerciciosContainer');
-  ejerciciosContainer.innerHTML = ejercicios.map(ejercicio => `
-      <h1 class="mt-5">${ejercicio.nombre}</h1>
-      <div class="d-flex justify-content-end">
+    // Filtrar los ejercicios para encontrar el ejercicio con el ID correspondiente
+    const ejercicio = ejercicios.find(e => e.id === id);
+
+    if (!ejercicio) {
+        console.error('No se encontró el ejercicio con el ID:', id);
+        return;
+    }
+
+    // Función para generar el contenido del ejercicio detallado
+    const generarContenidoDetalle = (ejercicio) => {
+      return `
+        <h1 class="mt-5">${ejercicio.titulo}</h1>
+        <div class="d-flex justify-content-end">
           <button class="btn btn-outline-secondary mt-5" id="botonVolver">
-              <i class="bi bi-arrow-bar-left" style="font-size: 1em;"></i>
-              Volver
+            <i class="bi bi-arrow-bar-left" style="font-size: 1em;"></i>
+            Volver
           </button>
-      </div>
-
-      <div class="row mt-2">
+        </div>
+  
+        <div class="row mt-2">
           <div class="col-12 col-md-4 mb-3">
-              <img src="${ejercicio.foto}" alt="" class="img-fluid">
+            <img src="${ejercicio.foto}" alt="" class="img-fluid">
           </div>
           <div class="col-12 col-md-8">
-              <p>
-                  <strong>Nombre: </strong><span>${ejercicio.nombre}</span></p>
-              <p>
-                  <strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
-              <p>
-                  <strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+            <p>
+              <strong>Nombre: </strong><span>${ejercicio.titulo}</span></p>
+            <p>
+              <strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
+            <p>
+              <strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
           </div>
-      </div>
-  `).join('');
-};
+        </div>
+      `;
+    };
 
-    pintarDetalleEjercicios();
-    // Modificamos el formato de la fecha quedandonos solo con el yy-mm-dd
-    const fecha = proyecto.created_at
-    const fechaCorta = fecha.split('T')[0]
+    // Inyectar el contenido del ejercicio detallado en el contenedor
+    document.getElementById('ejercicioDetalleContainer').innerHTML = generarContenidoDetalle(ejercicio);
 
-    // Inyectamos los datos en la vista
-    document.querySelector('#imagenJuego').setAttribute('src', proyecto.imagen)
-    document.querySelector('#nombreJuego').innerHTML = proyecto.nombre
-    document.querySelector('#descripcion').innerHTML = proyecto.descripcion
-    document.querySelector('#estado').innerHTML = proyecto.estado
-    document.querySelector('#fecha').innerHTML = fechaCorta
-    document.querySelector('#enlace').innerHTML = proyecto.enlace
-    document.querySelector('#repositorio').innerHTML = proyecto.repositorio
-
-    // Añadimos el id en data-id al botón editar para que al detectar el click podamos llamar a la vista de edición pasandole el id en cuestión
-    document.querySelector('#botonEditarDetalle').setAttribute('data-id', proyecto.id)
-
-    // Boton volver atras
-    document.querySelector('#botonVolver').addEventListener('click', () => {
-      window.history.back()
-    })
-
-    // Boton editar
-    document.querySelector('#botonEditarDetalle').addEventListener('click', (e) => {
-      const id = e.target.dataset.id
-      window.location = `#/proyectoEditar/${id}`
-    })
+    // Botón volver atrás
+    document.getElementById('botonVolver').addEventListener('click', () => {
+      window.history.back();
+    });
   }
-}
+};
