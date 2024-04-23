@@ -1,6 +1,8 @@
-import { perfiles } from '../bd/datosPrueba'
+// loginVista.js
 import { ls } from '../componentes/funciones'
+import { User } from '../bd/user'
 import { header } from '../componentes/header'
+import { menuUsuario } from '../componentes/menus'
 
 export default {
   template: // html
@@ -54,59 +56,78 @@ export default {
   `,
   script: () => {
     console.log('vista login cargada')
-    // Validación bootstrap
 
     // Capturamos el formulario en una variable
     const formulario = document.querySelector('#formularioLogin')
+
     // Detectamos su evento submit (enviar)
-    formulario.addEventListener('submit', (event) => {
+    formulario.addEventListener('submit', async (event) => {
       // Detenemos el evento enviar (submit)
       event.preventDefault()
       event.stopPropagation()
+
       // Comprobamos si el formulario no valida
       if (!formulario.checkValidity()) {
         // Y añadimos la clase 'was-validate' para que se muestren los mensajes
         formulario.classList.add('was-validated')
       } else {
-        // Si valida enviamos los datos
-        enviarDatos(formulario)
+        // Si valida, intentamos iniciar sesión
+        const email = formulario.email.value
+        const password = formulario.password.value
+
+        try {
+          // Iniciamos sesión utilizando Supabase
+          const user = await User.login({ email, password })
+
+          // Si el inicio de sesión es exitoso, almacenamos el usuario en el localStorage
+          ls.setUsuario({
+            email: user.email,
+            rol: 'logueado',
+            avatar: '', // Puedes actualizar esto si obtienes el avatar del usuario desde Supabase
+          })
+
+          // Redirigimos al usuario a la página de proyectos
+          window.location = '#/home'
+
+          // Actualizamos el header para que se muestren los menús correspondientes al rol
+          header.script()
+
+          // Mostramos el menú de usuario
+          mostrarMenuUsuario()
+        } catch (error) {
+          // Si hay un error al iniciar sesión, mostramos un mensaje de error
+          console.error('Error al iniciar sesión:', error.message)
+          alert('Error al iniciar sesión. Por favor, verifica tus credenciales.')
+        }
       }
     })
 
-    function enviarDatos (formulario) {
-      const email = formulario.email.value
-      const pass = formulario.password.value
+   // Función para mostrar el menú de usuario
+function mostrarMenuUsuario() {
+  // Capturamos el contenedor del menú de usuario
+  const menuUsuarioContainer = document.querySelector('#menuUsuario')
 
-      // Buscamos el índice del email en el array perfiles
-      const indexUser = perfiles.findIndex((user) => user.email === email)
+  // Si hay un contenedor y el usuario está logueado
+  if (menuUsuarioContainer && ls.getUsuario().rol === 'logueado') {
+    // Limpiamos el contenedor
+    menuUsuarioContainer.innerHTML = ''
 
-      // Si encuentra un usuario
-      if (indexUser >= 0) {
-        // Si la contraseña es correcta
-        if (perfiles[indexUser].password === pass) {
-          console.log('¡Login correcto!')
-          const usuario = {
-            nombre: perfiles[indexUser].nombre,
-            apellidos: perfiles[indexUser].apellidos,
-            email: perfiles[indexUser].email,
-            rol: perfiles[indexUser].rol,
-            avatar: perfiles[indexUser].avatar,
-            user_id: perfiles[indexUser].user_id
-          }
-          // Guardamos datos de usuario en localStorage
-          ls.setUsuario(usuario)
-          // Cargamos la página home
-          window.location = '#/proyectos'
-          // Actualizamos el header para que se muestren los menús que corresponden al rol
-          header.script()
-        } else {
-          console.log('La contraseña no corresponde')
-          alert('La contraseña no es correcta')
-        }
-      } else {
-        console.log('El usuario no existe')
-        alert('El usuario no existe')
-      }
+    // Agregamos el HTML del menú de usuario correspondiente al rol
+    switch (ls.getUsuario().rol) {
+      case 'registrado':
+        menuUsuarioContainer.innerHTML = menuUsuario.templateRegistrado
+        break
+      case 'desarrollador':
+        menuUsuarioContainer.innerHTML = menuUsuario.templateDesarrollador
+        break
+      case 'admin':
+        menuUsuarioContainer.innerHTML = menuUsuario.templateAdmin
+        break
+      default:
+        // Si el rol no coincide con ninguno de los casos anteriores, no mostramos ningún menú
+        break
     }
+  }
+}
   }
 }
