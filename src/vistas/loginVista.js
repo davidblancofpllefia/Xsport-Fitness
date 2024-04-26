@@ -82,7 +82,7 @@ export default {
           // Si el inicio de sesión es exitoso, almacenamos el usuario en el localStorage
           ls.setUsuario({
             email: user.email,
-            rol: 'logueado',
+            rol: 'registrado',
             avatar: '', // Puedes actualizar esto si obtienes el avatar del usuario desde Supabase
           })
 
@@ -91,7 +91,7 @@ export default {
 
           // Actualizamos el header para que se muestren los menús correspondientes al rol
           header.script()
-
+          console.log("Has iniciado sesion")
           // Mostramos el menú de usuario
           mostrarMenuUsuario()
         } catch (error) {

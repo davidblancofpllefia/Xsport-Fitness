@@ -2,7 +2,7 @@ import { ls } from './funciones'
 const menuRol = {
   templateAnonimo: // html
   `
-  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+  <ul class="navbar-nav text-end me-2 mb-2 mb-lg-0">
     <li class="nav-item">
       <a class="ms-2 btn btn-success router-link" href="#/login" >
         Iniciar sesión
@@ -20,11 +20,11 @@ const menuRol = {
   `,
   templateRegistrado: // html
   `
-  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+ <!-- <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item">
       <a class="nav-link active router-link" aria-current="page" href="#/proyectos">PROYECTOS</a>
     </li>
-  </ul>
+  </ul>-->
   `,
   templateDesarrollador: // html
   `
@@ -62,10 +62,10 @@ const menuUsuario = {
         <img id="avatarMenu" src="images/avatar.svg" alt="" width="25" />
       </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-        <li id="emailUserMenu" class="text-light text-end p-2 small">
+        <li id="emailUserMenu" class=" text-end p-2 small">
           ${ls.getUsuario().email}
         </li>
-        <li id="rolUserMenu" class="text-light text-end pe-2 small fst-italic">
+        <li id="rolUserMenu" class=" text-end pe-2 small fst-italic">
           ${ls.getUsuario().rol}
         </li>
         <li><hr class="dropdown-divider" /></li>
