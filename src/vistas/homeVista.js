@@ -3,37 +3,45 @@ import { supabase } from "../bd/supabase";
 export default {
   template: `
   <div class="imagenFondo d-flex align-items-center">
-      <div class="container">
-          <div class="textoInicio bg-light p-4 bg-opacity-75">
-              <h1 class="fw-bolder my-3">¡Bienvenido!</h1>
-              <p class="fw-normal">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, blanditiis asperiores adipisci enim repellendus numquam officia temporibus pariatur dolorum laborum officiis iure eum qui aliquid error vitae, consequatur ipsum exercitationem!
-              </p>
+  <div class="container">
+      <div class="textoInicio bg-light p-4 bg-opacity-75">
+          <h1 class="fw-bolder my-3">¡Bienvenido!</h1>
+          <p class="fw-normal">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, blanditiis asperiores adipisci enim repellendus numquam officia temporibus pariatur dolorum laborum officiis iure eum qui aliquid error vitae, consequatur ipsum exercitationem!
+          </p>
+      </div>
+  </div>
+</div>
+<div class="container mt-4">
+  <!-- Buscador y botón -->
+  <div class="row align-items-center">
+      <div class="col">
+          <div class="input-group flex-nowrap w-50">
+              <span class="input-group-text" id="addon-wrapping">
+                  <i class="bi bi-search"></i>
+              </span>
+              <input
+                  id="inputBusqueda"
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscador"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
+              />
+              <span class="input-group-text" id="addon-wrapping">
+                  <i id="borrarBuscador" class="bi bi-x"></i>
+              </span>
           </div>
       </div>
-  </div>
-  <div class="container mt-4">
-      <!-- Buscador -->
-      <div class="input-group flex-nowrap w-50">
-          <span class="input-group-text" id="addon-wrapping">
-              <i class="bi bi-search"></i>
-          </span>
-          <input
-              id="inputBusqueda"
-              type="text"
-              class="form-control"
-              placeholder="Buscador"
-              aria-label="Username"
-              aria-describedby="addon-wrapping"
-          />
-          <span class="input-group-text" id="addon-wrapping">
-              <i id="borrarBuscador" class="bi bi-x"></i>
-          </span>
+      <div class="col-auto">
+          <button id="botonAgregar" class="btn btn-primary mt-3">Añadir</button>
       </div>
   </div>
-  <div class="container d-flex flex-wrap mt-5 col-sm-12" id="ejerciciosContainer">
-      <!-- Aquí se pintarán los ejercicios -->
-  </div>
+</div>
+<div class="container d-flex flex-wrap mt-5 col-sm-12" id="ejerciciosContainer">
+  <!-- Aquí se pintarán los ejercicios -->
+</div>
+
   `,
   script: async () => {
       // Obtenemos los datos de la tabla de ejercicios desde Supabase
@@ -116,5 +124,16 @@ document.getElementById('inputBusqueda').addEventListener('input', (event) => {
               window.location = `#/proyectoDetalle/${id}`;
           });
       });
+
+      // Obtener el botón "Añadir"
+const botonAgregar = document.getElementById('botonAgregar');
+
+// Evento de clic para el botón "Añadir"
+botonAgregar.addEventListener('click', () => {
+    // Redirigir a la vista para agregar un nuevo ejercicio
+    window.location = '#/proyectoNuevo'; 
+});
+
+      
   }
 }
