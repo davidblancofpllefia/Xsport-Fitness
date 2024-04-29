@@ -59,6 +59,16 @@ export default {
             <p><strong>Equipamiento Necesario: </strong><span>${ejercicio.equipamiento}</span></p>
           </div>
         </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-outline-secondary mt-5" id="botonEditar">
+          <i class="bi bi-pencil-fill"></i>
+          </button>
+
+          <button class="btn btn-outline-secondary mt-5" id="botonBorrar">
+          <i class="bi bi-trash-fill"></i>
+          </button>
+          
+        </div>
       `;
     };
 
@@ -69,5 +79,36 @@ export default {
     document.getElementById('botonVolver').addEventListener('click', () => {
       window.history.back();
     });
+
+     // Botón borrar ejercicio
+     document.getElementById('botonBorrar').addEventListener('click', async () => {
+      if (confirm('¿Estás seguro de que quieres eliminar este ejercicio?')) {
+        try {
+          const { error } = await supabase
+            .from('ejercicios')
+            .delete()
+            .eq('id', id);
+  
+          if (error) {
+            throw error;
+          }
+  
+          alert('Ejercicio eliminado correctamente');
+          console.log('Ejercicio eliminado de la base de datos');
+          window.history.back(); // Redirige al usuario atrás después de eliminar el ejercicio
+        } catch (error) {
+          console.error('Error al eliminar ejercicio:', error.message);
+          alert('Error al eliminar ejercicio. Por favor, inténtalo de nuevo.');
+        }
+      }
+    });
+
+    // Botón editar ejercicio
+    document.getElementById('botonEditar').addEventListener('click', () => {
+      // Redirige al usuario a la página de edición del ejercicio pasando el ID como parámetro
+      window.location = `#/proyectoEditar/${id}`;
+    });
+
+    
   }
 };
