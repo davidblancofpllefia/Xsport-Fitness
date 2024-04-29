@@ -77,7 +77,7 @@ export default {
 
     // Botón volver atrás
     document.getElementById('botonVolver').addEventListener('click', () => {
-      window.history.back();
+      window.location = '#/home';
     });
 
      // Botón borrar ejercicio
