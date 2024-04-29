@@ -51,12 +51,12 @@ export default {
             <img src="${ejercicio.foto}" alt="" class="img-fluid">
           </div>
           <div class="col-12 col-md-8">
-            <p>
-              <strong>Nombre: </strong><span>${ejercicio.titulo}</span></p>
-            <p>
-              <strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
-            <p>
-              <strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+            <p><strong>Nombre: </strong><span>${ejercicio.titulo}</span></p>
+            <p><strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
+            <p><strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+            <p><strong>Tipo de Ejercicio: </strong><span>${ejercicio.tipo}</span></p>
+            <p><strong>Nivel de Dificultad: </strong><span>${ejercicio.nivel}</span></p>
+            <p><strong>Equipamiento Necesario: </strong><span>${ejercicio.equipamiento}</span></p>
           </div>
         </div>
       `;

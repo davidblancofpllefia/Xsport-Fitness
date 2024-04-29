@@ -61,43 +61,47 @@ export default {
 </div>
 
     `,
-  script: () => {
-    // Boton volver atras
-    document.querySelector('#botonVolver').addEventListener('click', () => {
-      window.history.back()
-    })
-
-    // Validación bootstrap
-    // Capturamos el formulario en una variable
-    const formulario = document.querySelector('#formularioNuevoPRoyecto')
-    // Detectamos su evento submit (enviar)
-    formulario.addEventListener('submit', (event) => {
-      // Detenemos el evento enviar (submit)
-      event.preventDefault()
-      event.stopPropagation()
-      // Comprobamos si el formulario no valida
-      if (!formulario.checkValidity()) {
-        // Y añadimos la clase 'was-validate' para que se muestren los mensajes
-        formulario.classList.add('was-validated')
-      } else {
-        enviaDatos()
+    script: () => {
+      // Boton volver atras
+      document.querySelector('#botonVolver').addEventListener('click', () => {
+          window.history.back();
+      });
+  
+      // Validación bootstrap
+      // Capturamos el formulario en una variable
+      const formulario = document.querySelector('#formularioNuevoEjercicio');
+  
+      // Detectamos su evento submit (enviar)
+      formulario.addEventListener('submit', (event) => {
+          // Detenemos el evento enviar (submit)
+          event.preventDefault();
+          event.stopPropagation();
+          // Comprobamos si el formulario no valida
+          if (!formulario.checkValidity()) {
+              // Y añadimos la clase 'was-validate' para que se muestren los mensajes
+              formulario.classList.add('was-validated');
+              // Mostramos una alerta indicando que faltan datos por completar
+              alert('Por favor, completa todos los campos del formulario.');
+          } else {
+              enviaDatos();
+          }
+      });
+  
+      // Función para enviar datos a la base de datos
+      function enviaDatos() {
+          const ejercicioNuevo = {
+            imagen: document.querySelector('#urlImagen').value,
+            nombre: document.querySelector('#nombreEjercicio').value,
+            descripcion: document.querySelector('#descripcion').value,
+            rutina: document.querySelector('#rutina').value,
+            tipo: document.querySelector('#tipoEjercicio').value,
+            dificultad: document.querySelector('#nivelDificultad').value,
+            equipamiento: document.querySelector('#equipamiento').value
+          };
+          // Enviar los datos del nuevo ejercicio a la base de datos o realizar la acción necesaria
+          alert('Ejercicio añadido correctamente');
+          console.log('Ejercicio añadido a la base de datos: ', ejercicioNuevo);
       }
-    })
-
-    // Función para enviar datos a la base de datos
-    function enviaDatos () {
-      const proyectoEditado = {
-        imagen: document.querySelector('#urlImagen').value,
-        nombre: document.querySelector('#nombreJuego').value,
-        descripcion: document.querySelector('#descripcion').value,
-        fecha: document.querySelector('#fecha').value,
-        estado: document.querySelector('#estado').value,
-        enlace: document.querySelector('#enlace').value,
-        repositorio: document.querySelector('#repositorio').value
-      }
-      // eslint-disable-next-line no-undef
-      alert('Enviando proyecto a la base de datos')
-      console.log('Enviando a la base de datos ', proyectoEditado)
-    }
   }
+  
 }
