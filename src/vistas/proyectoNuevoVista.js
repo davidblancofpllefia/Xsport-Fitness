@@ -1,3 +1,5 @@
+import { supabase } from "../bd/supabase";
+
 export default {
   template: // html
     `
@@ -88,20 +90,33 @@ export default {
       });
   
       // Función para enviar datos a la base de datos
-      function enviaDatos() {
-          const ejercicioNuevo = {
-            imagen: document.querySelector('#urlImagen').value,
-            nombre: document.querySelector('#nombreEjercicio').value,
-            descripcion: document.querySelector('#descripcion').value,
-            rutina: document.querySelector('#rutina').value,
-            tipo: document.querySelector('#tipoEjercicio').value,
-            dificultad: document.querySelector('#nivelDificultad').value,
-            equipamiento: document.querySelector('#equipamiento').value
-          };
-          // Enviar los datos del nuevo ejercicio a la base de datos o realizar la acción necesaria
-          alert('Ejercicio añadido correctamente');
-          console.log('Ejercicio añadido a la base de datos: ', ejercicioNuevo);
-      }
-  }
+      async function enviaDatos() {
+        const ejercicioNuevo = {
+          foto: document.querySelector('#urlImagen').value,
+          titulo: document.querySelector('#nombreEjercicio').value,
+          descripcion: document.querySelector('#descripcion').value,
+          rutina: document.querySelector('#rutina').value,
+          tipo: document.querySelector('#tipoEjercicio').value,
+          nivel: document.querySelector('#nivelDificultad').value,
+          equipamiento: document.querySelector('#equipamiento').value
+        };
   
+        try {
+          // Inserta el ejercicio en la base de datos utilizando Supabase
+          const { data, error } = await supabase
+            .from('ejercicios')
+            .insert([ejercicioNuevo]);
+  
+          if (error) {
+            throw error;
+          }
+  
+          alert('Ejercicio añadido correctamente');
+          console.log('Ejercicio añadido a la base de datos:', data);
+        } catch (error) {
+          console.error('Error al añadir ejercicio a la base de datos:', error.message);
+          alert('Error al añadir ejercicio a la base de datos. Por favor, inténtalo de nuevo.');
+        }
+    }
+  }
 }
