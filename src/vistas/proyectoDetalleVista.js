@@ -95,7 +95,8 @@ export default {
   
           alert('Ejercicio eliminado correctamente');
           console.log('Ejercicio eliminado de la base de datos');
-          window.history.back(); // Redirige al usuario atrás después de eliminar el ejercicio
+          window.location = '#/home';
+          //window.history.back(); // Redirige al usuario atrás después de eliminar el ejercicio
         } catch (error) {
           console.error('Error al eliminar ejercicio:', error.message);
           alert('Error al eliminar ejercicio. Por favor, inténtalo de nuevo.');

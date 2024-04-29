@@ -103,6 +103,7 @@ export default {
 
         alert('Ejercicio añadido correctamente');
         console.log('Ejercicio añadido a la base de datos:', data);
+        window.location = '#/home';
       } catch (error) {
         console.error('Error al añadir ejercicio a la base de datos:', error.message);
         alert('Error al añadir ejercicio a la base de datos. Por favor, inténtalo de nuevo.');
