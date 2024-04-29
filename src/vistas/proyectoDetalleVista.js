@@ -60,12 +60,12 @@ export default {
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <button class="btn btn-outline-secondary mt-5" id="botonEditar">
+          <button class="btn btn-success rounded-circle fs-3 shadow  mt-5" id="botonEditar">
           <i class="bi bi-pencil-fill"></i>
           </button>
 
-          <button class="btn btn-outline-secondary mt-5" id="botonBorrar">
-          <i class="bi bi-trash-fill"></i>
+          <button class="btn btn-sm btn-outline-danger rounded-circle fs-3 shadow  mt-5" id="botonBorrar">
+          <i class="bi bi-trash3"></i>
           </button>
           
         </div>
