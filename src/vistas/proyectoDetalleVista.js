@@ -51,13 +51,23 @@ export default {
             <img src="${ejercicio.foto}" alt="" class="img-fluid">
           </div>
           <div class="col-12 col-md-8">
-            <p>
-              <strong>Nombre: </strong><span>${ejercicio.titulo}</span></p>
-            <p>
-              <strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
-            <p>
-              <strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+            <p><strong>Nombre: </strong><span>${ejercicio.titulo}</span></p>
+            <p><strong>Descripción: </strong><span>${ejercicio.descripcion}</span></p>
+            <p><strong>Rutina Recomendada: </strong><span>${ejercicio.rutina}</span></p>
+            <p><strong>Tipo de Ejercicio: </strong><span>${ejercicio.tipo}</span></p>
+            <p><strong>Nivel de Dificultad: </strong><span>${ejercicio.nivel}</span></p>
+            <p><strong>Equipamiento Necesario: </strong><span>${ejercicio.equipamiento}</span></p>
           </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-success rounded-circle fs-3 shadow  mt-5" id="botonEditar">
+          <i class="bi bi-pencil-fill"></i>
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger rounded-circle fs-3 shadow  mt-5" id="botonBorrar">
+          <i class="bi bi-trash3"></i>
+          </button>
+          
         </div>
       `;
     };
@@ -67,7 +77,39 @@ export default {
 
     // Botón volver atrás
     document.getElementById('botonVolver').addEventListener('click', () => {
-      window.history.back();
+      window.location = '#/home';
     });
+
+     // Botón borrar ejercicio
+     document.getElementById('botonBorrar').addEventListener('click', async () => {
+      if (confirm('¿Estás seguro de que quieres eliminar este ejercicio?')) {
+        try {
+          const { error } = await supabase
+            .from('ejercicios')
+            .delete()
+            .eq('id', id);
+  
+          if (error) {
+            throw error;
+          }
+  
+          alert('Ejercicio eliminado correctamente');
+          console.log('Ejercicio eliminado de la base de datos');
+          window.location = '#/home';
+          //window.history.back(); // Redirige al usuario atrás después de eliminar el ejercicio
+        } catch (error) {
+          console.error('Error al eliminar ejercicio:', error.message);
+          alert('Error al eliminar ejercicio. Por favor, inténtalo de nuevo.');
+        }
+      }
+    });
+
+    // Botón editar ejercicio
+    document.getElementById('botonEditar').addEventListener('click', () => {
+      // Redirige al usuario a la página de edición del ejercicio pasando el ID como parámetro
+      window.location = `#/proyectoEditar/${id}`;
+    });
+
+    
   }
 };

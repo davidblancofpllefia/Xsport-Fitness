@@ -8,37 +8,23 @@ export const header = {
   template: // html
   `
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand " href="#/home"
-        ><img
-          src="images/logo.png"
-          alt=""
-          width="30"
-          height="24"
-          class="d-inline-block align-text-top"
-        />
-
-        Xsport Fitness</a
-      >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
+  <div class="container">
+      <a class="navbar-brand" href="#/home">
+          <img src="images/logo.png" alt="" width="35" height="35" class="d-inline-block align-text-top" />
+          XSport Fitness
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-
-        <div id="menuRol"></div>
-        <div id="menuUsuario"></div>
+          <div class="ms-auto"> 
+          </div>
+          <div id="menuRol"></div>
+          <div id="menuUsuario"></div>
       </div>
-    </div>
-  </nav>
+  </div>
+</nav>
+
   <div id="modal"></div>
   `,
   script: () => {

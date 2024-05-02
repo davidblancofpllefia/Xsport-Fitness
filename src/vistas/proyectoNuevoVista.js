@@ -1,142 +1,113 @@
+import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
+
 export default {
-  template: // html
-    `
-    <div class="container">
-    <h1 class="mt-5">Nuevo proyecto</h1>
-    <div class="d-flex justify-content-end">
-      <bottom id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left">
-        Volver</bottom>
-    </div>
-  
-    <div class="row mt-2">
+  template: `
+  <div class="container">
+  <h1 class="mt-5">Nuevo Ejercicio</h1>
+  <div class="d-flex justify-content-end">
+      <button id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left">
+          Volver
+      </button>
+  </div>
+
+  <div class="row mt-2">
       <div class="col-12 col-md-4 pt-2 mb-3">
-        <img src="images/imagenVacia.png" alt="" class="img-fluid" />
-        <label class="form-label mt-2" for="urlImagen"
-            ><strong>URL imagen: </strong></label
-          >
-          <input
-            id="urlImagen"
-            type="text"
-            class="form-control"
-            value="http://enlaceImagen.com"
-          />
+          <img src="images/imagenVacia.png" alt="" class="img-fluid" />
+          <label class="form-label mt-2" for="urlImagen"><strong>URL imagen:</strong></label>
+          <input id="urlImagen" type="text" class="form-control" value="http://enlaceImagen.com" />
       </div>
       <div class="col-12 col-md-8">
-        <!-- Formulario nuevo proyecto -->
-        <form id="formularioNuevoProyecto" action="" class="form" novalidate>
-          <!-- Nombre proyecto -->
-          <label class="form-label" for="nombreJuego"><strong>Nombre: </strong></label>
-          <input
-            required
-            id="nombreJuego"
-            type="text"
-            value=""
-            class="form-control"
-            placeholder="Escribe aquí el nombre del juego"
-          />
-  
-          <!-- Descripción -->
-          <label class="form-label mt-2" for="descripcion"
-            ><strong>Descripción: </strong></label
-          >
-          <textarea 
-            id="descripcion" 
-            class="form-control" 
-            rows="4"
-            placeholder="Descripción del juego"
-          ></textarea
-          >
-  
-          <!-- Estado -->
-          <label class="form-label mt-2" for="estado"
-            ><strong>Estado: </strong></label
-          >
-          <select required id="estado" class="form-control">
-            <option value="estado">En desarrollo</option>
-            <option value="otro estado">Finalizado</option>
-          </select>
-  
-          <!-- Fecha -->
-          <label class="form-label mt-2" for="fecha"
-            ><strong>Fecha: </strong></label
-          >
-          <input 
-            id="fecha" 
-            type="date" 
-            class="form-control" 
-            value="${(new Date()).toISOString().split('T')[0]}" 
-          />
-  
-          <!-- Enlace al proyecto -->
-          <label class="form-label mt-2" for="enlace"
-            ><strong>Enlace: </strong></label
-          >
-          <input
-            id="enlace"
-            type="url"
-            class="form-control"
-            value="http://enlace.com"
-          />
-  
-          <!-- Repositorio -->
-          <label class="form-label mt-2" for="repositorio"
-            ><strong>Repositorio: </strong></label
-          >
-          <input
-            id="repositorio"
-            type="text"
-            class="form-control"
-            value="user.github.com/123456"
-          />
-  
-          <!-- Submit -->
-          <input
-            type="submit"
-            class="btn btn-success mt-3"
-            value="Subir proyecto"
-          />
-        </form>
+          <!-- Formulario nuevo ejercicio -->
+          <form id="formularioNuevoEjercicio" action="" class="form" novalidate>
+              <!-- Nombre del ejercicio -->
+              <label class="form-label" for="nombreEjercicio"><strong>Nombre:</strong></label>
+              <input required id="nombreEjercicio" type="text" class="form-control"
+                  placeholder="Nombre del ejercicio" />
+
+              <!-- Descripción -->
+              <label class="form-label mt-2" for="descripcion"><strong>Descripción:</strong></label>
+              <textarea id="descripcion" class="form-control" rows="4"
+                  placeholder="Descripción del ejercicio"></textarea>
+
+              <!-- Rutina -->
+              <label class="form-label mt-2" for="rutina"><strong>Rutina:</strong></label>
+              <input id="rutina" type="text" class="form-control" placeholder="Rutina recomendada" />
+
+              <!-- Tipo de ejercicio -->
+              <label class="form-label mt-2" for="tipoEjercicio"><strong>Tipo de ejercicio:</strong></label>
+              <select required id="tipoEjercicio" class="form-control">
+                  <option value="cardio">Cardio</option>
+                  <option value="fuerza">Fuerza</option>
+                  <option value="flexibilidad">Flexibilidad</option>
+                  <option value="equilibrio">Equilibrio</option>
+              </select>
+
+              <!-- Nivel de dificultad -->
+              <label class="form-label mt-2" for="nivelDificultad"><strong>Nivel de dificultad:</strong></label>
+              <select required id="nivelDificultad" class="form-control">
+                  <option value="principiante">Principiante</option>
+                  <option value="intermedio">Intermedio</option>
+                  <option value="avanzado">Avanzado</option>
+              </select>
+
+              <!-- Equipamiento necesario -->
+              <label class="form-label mt-2" for="equipamiento"><strong>Equipamiento necesario:</strong></label>
+              <input id="equipamiento" type="text" class="form-control" placeholder="Equipamiento requerido" />
+
+              <!-- Submit -->
+              <input type="submit" class="btn btn-success mt-3" value="Guardar ejercicio" />
+          </form>
       </div>
-    </div>
   </div>
-    `,
+</div>
+
+  `,
   script: () => {
-    // Boton volver atras
-    document.querySelector('#botonVolver').addEventListener('click', () => {
-      window.history.back()
-    })
+    // Captura el formulario
+    const formulario = document.querySelector('#formularioNuevoEjercicio');
 
-    // Validación bootstrap
-    // Capturamos el formulario en una variable
-    const formulario = document.querySelector('#formularioNuevoPRoyecto')
-    // Detectamos su evento submit (enviar)
-    formulario.addEventListener('submit', (event) => {
-      // Detenemos el evento enviar (submit)
-      event.preventDefault()
-      event.stopPropagation()
-      // Comprobamos si el formulario no valida
+    // Detecta el evento submit del formulario
+    formulario.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
       if (!formulario.checkValidity()) {
-        // Y añadimos la clase 'was-validate' para que se muestren los mensajes
-        formulario.classList.add('was-validated')
+        formulario.classList.add('was-validated');
+        alert('Por favor, completa todos los campos del formulario.');
       } else {
-        enviaDatos()
+        enviaDatos();
       }
-    })
+    });
 
-    // Función para enviar datos a la base de datos
-    function enviaDatos () {
-      const proyectoEditado = {
-        imagen: document.querySelector('#urlImagen').value,
-        nombre: document.querySelector('#nombreJuego').value,
+    // Función para enviar los datos a la base de datos utilizando Supabase
+    async function enviaDatos() {
+      const ejercicioNuevo = {
+        foto: document.querySelector('#urlImagen').value,
+        titulo: document.querySelector('#nombreEjercicio').value,
         descripcion: document.querySelector('#descripcion').value,
-        fecha: document.querySelector('#fecha').value,
-        estado: document.querySelector('#estado').value,
-        enlace: document.querySelector('#enlace').value,
-        repositorio: document.querySelector('#repositorio').value
+        rutina: document.querySelector('#rutina').value,
+        tipo: document.querySelector('#tipoEjercicio').value,
+        nivel: document.querySelector('#nivelDificultad').value,
+        equipamiento: document.querySelector('#equipamiento').value
+      };
+
+      try {
+        // Inserta el ejercicio en la base de datos utilizando Supabase
+        const { data, error } = await supabase
+          .from('ejercicios')
+          .insert([ejercicioNuevo]);
+
+        if (error) {
+          throw error;
+        }
+
+        alert('Ejercicio añadido correctamente');
+        console.log('Ejercicio añadido a la base de datos:', data);
+        window.location = '#/home';
+      } catch (error) {
+        console.error('Error al añadir ejercicio a la base de datos:', error.message);
+        alert('Error al añadir ejercicio a la base de datos. Por favor, inténtalo de nuevo.');
       }
-      // eslint-disable-next-line no-undef
-      alert('Enviando proyecto a la base de datos')
-      console.log('Enviando a la base de datos ', proyectoEditado)
     }
   }
 }
