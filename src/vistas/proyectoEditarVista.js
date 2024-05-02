@@ -43,9 +43,7 @@ export default {
 
         <!-- Descripción -->
         <label class="form-label mt-2" for="descripcion"><strong>Descripción: </strong></label>
-        <textarea id="descripcion" class="form-control" rows="4">
-        Descripción del ejercicio
-        </textarea>
+        <textarea id="descripcion" class="form-control" rows="4" placeholder="Descripción del ejercicio"></textarea>
 
         <!-- Rutina -->
         <label class="form-label mt-2" for="rutina"><strong>Rutina: </strong></label>
@@ -103,9 +101,6 @@ export default {
     document.querySelector('#descripcion').value = ejercicio.descripcion
     document.querySelector('#estado').value = ejercicio.estado
    
-
-    
-
     // Actualización de la imagen a partir de la urlImagen
     // Capturamos input
     const inputUrl = document.querySelector('#urlImagen')
