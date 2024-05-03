@@ -62,7 +62,7 @@ export default {
 </div>
 
   `,
-  script: () => {
+  script: () => { //HICE EL BOTON VOLVER EN MAIN DIRECTAMENTE SI NO VA HACERLO AQUI Y LUEGO EL MERGE IRA
     // Captura el formulario
     const formulario = document.querySelector('#formularioNuevoEjercicio');
 
