@@ -15,6 +15,8 @@ export default {
           <img src="images/imagenVacia.png" alt="" class="img-fluid" />
           <label class="form-label mt-2" for="urlImagen"><strong>URL imagen:</strong></label>
           <input id="urlImagen" type="text" class="form-control" value="http://enlaceImagen.com" />
+          <label class="form-label mt-2" for="urlGif"><strong>URL GIF:</strong></label>
+          <input id="urlGif" type="text" class="form-control" value="http://enlaceImagen.com" />
       </div>
       <div class="col-12 col-md-8">
           <!-- Formulario nuevo ejercicio -->
@@ -83,6 +85,7 @@ export default {
     async function enviaDatos() {
       const ejercicioNuevo = {
         foto: document.querySelector('#urlImagen').value,
+        gif: document.querySelector('#urlGif').value,
         titulo: document.querySelector('#nombreEjercicio').value,
         descripcion: document.querySelector('#descripcion').value,
         rutina: document.querySelector('#rutina').value,
