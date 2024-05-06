@@ -44,7 +44,7 @@ export default {
     const generarContenidoDetalle = (ejercicio, comentarios) => {
       let comentariosHTML = '';
       if (comentarios && comentarios.length > 0) {
-          comentariosHTML = comentarios.map(comment => `<div class="comment">${comment.comentario}</div>`).join('');
+          comentariosHTML = comentarios.map(comment => `<div class="comment" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">${comment.comentario}</div>`).join('');
       }
 
       return `
@@ -69,6 +69,15 @@ export default {
             <p><strong>Equipamiento Necesario: </strong><span>${ejercicio.equipamiento}</span></p>
           </div>
         </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-success rounded-circle fs-3 shadow  mt-5" id="botonEditar">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+  
+          <button class="btn btn-sm btn-outline-danger rounded-circle fs-3 shadow  mt-5" id="botonBorrar">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
         
         <!-- Área de Comentarios -->
         <div class="mt-5">
@@ -77,6 +86,8 @@ export default {
           <button id="btnEnviarComentario" class="btn btn-primary mt-2">Enviar Comentario</button>
           <div id="comentariosContainer" class="mt-3">${comentariosHTML}</div>
         </div>
+        
+        
       `;
     };
 
@@ -118,7 +129,7 @@ export default {
         
         // Agregar todos los comentarios actualizados al contenedor de comentarios
         nuevosComentarios.forEach(comentario => {
-          comentariosContainer.insertAdjacentHTML('beforeend', `<div class="comment">${comentario.comentario}</div>`);
+          comentariosContainer.insertAdjacentHTML('beforeend', `<div class="comment" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">${comentario.comentario}</div>`);
         });
 
         // Limpiar el textarea después de enviar el comentario
@@ -129,6 +140,36 @@ export default {
         console.error('Error al insertar comentario:', error.message);
         alert('Error al insertar comentario. Por favor, inténtalo de nuevo.');
       }
+    });
+
+    // Botón borrar ejercicio
+    document.getElementById('botonBorrar').addEventListener('click', async () => {
+      if (confirm('¿Estás seguro de que quieres eliminar este ejercicio?')) {
+        try {
+          const { error } = await supabase
+            .from('ejercicios')
+            .delete()
+            .eq('id', id);
+  
+          if (error) {
+            throw error;
+          }
+  
+          alert('Ejercicio eliminado correctamente');
+          console.log('Ejercicio eliminado de la base de datos');
+          window.location = '#/home';
+          //window.history.back(); // Redirige al usuario atrás después de eliminar el ejercicio
+        } catch (error) {
+          console.error('Error al eliminar ejercicio:', error.message);
+          alert('Error al eliminar ejercicio. Por favor, inténtalo de nuevo.');
+        }
+      }
+    });
+
+    // Botón editar ejercicio
+    document.getElementById('botonEditar').addEventListener('click', () => {
+      // Redirige al usuario a la página de edición del ejercicio pasando el ID como parámetro
+      window.location = `#/proyectoEditar/${id}`;
     });
   }
 };
