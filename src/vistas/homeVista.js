@@ -145,7 +145,7 @@ botonAgregar.addEventListener('click', () => {
 });
 
 if (!usuario ||usuario.rol === 'registrado') {
-    document.querySelector('#botonAgregar').classList.add('disabled')
+    document.querySelector('#botonAgregar').classList.add('d-none');
   }
   }
 }

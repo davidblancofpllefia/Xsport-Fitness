@@ -1,4 +1,6 @@
 import { supabase } from '../bd/supabase';
+import { ls } from '../componentes/funciones'
+
 
 export default {
   template: `
@@ -7,6 +9,8 @@ export default {
     </div>
   `,
   script: async () => {
+    const usuario = ls.getUsuario();
+
     const segments = window.location.hash.split('/'); // Dividir la URL en segmentos
     const idString = segments[segments.length - 1]; // Obtener el último segmento que debería contener el ID
     const id = parseInt(idString); // Convertir el ID a un número entero
@@ -93,6 +97,12 @@ export default {
 
     // Inyectar el contenido del ejercicio detallado en el contenedor
     document.getElementById('ejercicioDetalleContainer').innerHTML = generarContenidoDetalle(ejercicio, comentarios);
+    
+    // Deshabilitar los botones de editar y eliminar para usuarios con rol registrado
+if (usuario && usuario.rol === 'registrado') {
+  document.getElementById('botonEditar').style.display = 'none';
+  document.getElementById('botonBorrar').style.display = 'none';
+}
 
     // Botón volver atrás
     document.getElementById('botonVolver').addEventListener('click', () => {

@@ -14,11 +14,11 @@ export default {
     <form id="formularioLogin" novalidate action="" class="form border shadow-sm p-3">
       <!-- Email -->
       <label for="emailLogin" class="form-label">Email:</label>
-      <input id="emailLogin" name="email" value="ejemplo@email.com" required type="email" class="form-control" />
+      <input id="emailLogin" name="email" value="prueba@gmail.com" required type="email" class="form-control" />
       <div class="invalid-feedback">El formato del email no es correcto</div>
       <!-- Contraseña -->
       <label for="passLogin" class="form-label mt-3">Contraseña:</label>
-      <input value="123456" id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
+      <input value="prueba123" id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
       <div class="invalid-feedback">
         La contraseña debe tener como mínimo 6 caracteres
       </div>
