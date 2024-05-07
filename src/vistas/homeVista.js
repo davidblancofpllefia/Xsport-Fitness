@@ -48,6 +48,10 @@ export default {
   script: async () => {
        // Obtiene la información del usuario
     const usuario = ls.getUsuario();
+
+    if (!usuario ||usuario.rol === 'registrado') {
+        document.getElementById('botonAgregar').style.display = 'none';
+      }
       // Obtenemos los datos de la tabla de ejercicios desde Supabase
       let { data: ejercicios, error } = await supabase
           .from('ejercicios')
@@ -144,8 +148,6 @@ botonAgregar.addEventListener('click', () => {
     window.location = '#/proyectoNuevo'; 
 });
 
-if (!usuario ||usuario.rol === 'registrado') {
-    document.querySelector('#botonAgregar').classList.add('d-none');
-  }
+
   }
 }
