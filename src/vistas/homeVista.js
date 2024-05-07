@@ -62,7 +62,7 @@ export default {
           return;
       }
 
-      // Función para pintar los ejercicios en la vista
+     // Función para pintar los ejercicios en la vista
 const pintarEjercicios = () => {
     const ejerciciosContainer = document.getElementById('ejerciciosContainer');
     ejerciciosContainer.innerHTML = ejercicios.map(ejercicio => `
@@ -80,7 +80,13 @@ const pintarEjercicios = () => {
     ejerciciosContainer.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', () => {
             const id = card.dataset.id;
-            window.location = `#/proyectoDetalle/${id}`;
+            // Verifica si el usuario está logueado
+            if (usuario) {
+                window.location = `#/proyectoDetalle/${id}`;
+            } else {
+                // Si el usuario no está logueado, redirige a la página de registro
+                window.location = '#/registro';
+            }
         });
     });
 };
@@ -105,7 +111,13 @@ const filtrarEjercicios = (texto) => {
     ejerciciosContainer.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', () => {
             const id = card.dataset.id;
-            window.location = `#/proyectoDetalle/${id}`;
+            // Verifica si el usuario está logueado
+            if (usuario) {
+                window.location = `#/proyectoDetalle/${id}`;
+            } else {
+                // Si el usuario no está logueado, redirige a la página de registro
+                window.location = '#/registro';
+            }
         });
     });
 };
@@ -124,22 +136,7 @@ document.getElementById('inputBusqueda').addEventListener('input', (event) => {
     filtrarEjercicios(event.target.value);
 });
 
-
-      // Evento de clic para cada tarjeta de ejercicio
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-        // Verifica si el usuario está logueado
-        if (usuario) {
-            const id = card.dataset.id;
-            window.location = `#/proyectoDetalle/${id}`;
-        } else {
-            // Si el usuario no está logueado, redirige a la página de registro
-            window.location = '#/registro';
-        }
-    });
-});
-
-      // Obtener el botón "Añadir"
+// Obtener el botón "Añadir"
 const botonAgregar = document.getElementById('botonAgregar');
 
 // Evento de clic para el botón "Añadir"

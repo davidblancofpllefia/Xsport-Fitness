@@ -82,7 +82,7 @@ export default {
           // Si el inicio de sesión es exitoso, almacenamos el usuario en el localStorage
           ls.setUsuario({
             email: user.email,
-            rol: 'registrado',
+            rol: 'admin',
             avatar: '', // Puedes actualizar esto si obtienes el avatar del usuario desde Supabase
           })
 
