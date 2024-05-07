@@ -20,11 +20,12 @@ const menuRol = {
   `,
   templateRegistrado: // html
   `
- <!-- <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+  
+  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item">
       <a class="nav-link active router-link" aria-current="page" href="#/proyectos">PROYECTOS</a>
     </li>
-  </ul>-->
+  </ul>
   `,
   templateDesarrollador: // html
   `

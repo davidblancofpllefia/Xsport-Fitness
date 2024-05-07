@@ -5,7 +5,7 @@ export const ls = {
       // Definimos usuario anónimo por si no hay datos en localstorage
       let usuario = {
         email: 'anónimo',
-        rol: 'no logueado',
+        rol: 'registrado',
         avatar: ''
       }
       // Capturamos datos de localstorage

@@ -1,4 +1,6 @@
 import { supabase } from "../bd/supabase";
+import { ls } from '../componentes/funciones'
+
 
 export default {
   template: `
@@ -44,6 +46,8 @@ export default {
 
   `,
   script: async () => {
+       // Obtiene la información del usuario
+    const usuario = ls.getUsuario();
       // Obtenemos los datos de la tabla de ejercicios desde Supabase
       let { data: ejercicios, error } = await supabase
           .from('ejercicios')
@@ -118,12 +122,18 @@ document.getElementById('inputBusqueda').addEventListener('input', (event) => {
 
 
       // Evento de clic para cada tarjeta de ejercicio
-      document.querySelectorAll('.card').forEach(card => {
-          card.addEventListener('click', () => {
-              const id = card.dataset.id;
-              window.location = `#/proyectoDetalle/${id}`;
-          });
-      });
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+        // Verifica si el usuario está logueado
+        if (usuario) {
+            const id = card.dataset.id;
+            window.location = `#/proyectoDetalle/${id}`;
+        } else {
+            // Si el usuario no está logueado, redirige a la página de registro
+            window.location = '#/registro';
+        }
+    });
+});
 
       // Obtener el botón "Añadir"
 const botonAgregar = document.getElementById('botonAgregar');
@@ -134,6 +144,8 @@ botonAgregar.addEventListener('click', () => {
     window.location = '#/proyectoNuevo'; 
 });
 
-      
+if (!usuario ||usuario.rol === 'registrado') {
+    document.querySelector('#botonAgregar').classList.add('disabled')
+  }
   }
 }
