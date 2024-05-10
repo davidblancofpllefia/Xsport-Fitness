@@ -26,6 +26,13 @@ export default {
       <label for="pass" class="form-label mt-3">Contraseña:</label>
       <input required id="pass" type="password" class="form-control" />
 
+      <!-- Rol -->
+      <!--// <label for="rol" class="form-label mt-3">Rol:</label>
+      // <select id="rol" name="rol">
+      //   <option value="administrador">Administrador</option>
+      //   <option value="registrado">Registrado</option>
+      // </select>-->
+
       <!-- Botón enviar -->
       <input type="submit" class="btn btn-primary w-100 mt-3" value="Enviar" />
     </form>
