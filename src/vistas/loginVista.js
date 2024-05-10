@@ -5,6 +5,7 @@ import { header } from '../componentes/header';
 import { menuUsuario } from '../componentes/menus';
 
 export default {
+
   template: `
     <div class="container">
       <h1 class="mt-5 text-center">Inicia sesión</h1>
@@ -21,6 +22,7 @@ export default {
           <div class="invalid-feedback">
             La contraseña debe tener como mínimo 6 caracteres
           </div>
+
 
           <!-- Recordar contraseña -->
           <div class="form-check mt-3">
