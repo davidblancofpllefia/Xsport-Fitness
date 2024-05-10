@@ -5,39 +5,48 @@ import { User } from '../bd/user'
 export default {
   template: // html
   `
-  <div class="container">
-  <h1 class="mt-5 text-center">Registro</h1>
-  <div class="m-5 mx-auto" style="max-width: 400px">
-    <!-- Formulario de registro -->
-    <form id="formularioRegistro" class="form border shadow-sm p-3" novalidate>
-      <!-- Nombre -->
-      <label for="nombre" class="form-label">Nombre:</label>
-      <input required id="nombre" type="text" class="form-control" />
-
-      <!-- Apellidos -->
-      <label for="apellidos" class="form-label">Apellidos:</label>
-      <input id="apellidos" type="text" class="form-control" />
-
-      <!-- Email -->
-      <label for="email" class="form-label">Email:</label>
-      <input required id="email" type="email" class="form-control" />
-
-      <!-- Contraseña -->
-      <label for="pass" class="form-label mt-3">Contraseña:</label>
-      <input required id="pass" type="password" class="form-control" />
-
-      <!-- Rol -->
-      <!--// <label for="rol" class="form-label mt-3">Rol:</label>
-      // <select id="rol" name="rol">
-      //   <option value="administrador">Administrador</option>
-      //   <option value="registrado">Registrado</option>
-      // </select>-->
-
-      <!-- Botón enviar -->
-      <input type="submit" class="btn btn-primary w-100 mt-3" value="Enviar" />
-    </form>
+  <div class="container-fluid" style="background-image: url('./images/flexion.jpg'); background-size: cover; background-position: center;">
+  <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+          <div class="card shadow-lg rounded">
+              <div class="card-body p-5">
+                  <h1 class="mb-4 text-center text-primary">Registro</h1>
+                  <!-- Formulario de registro -->
+                  <form id="formularioRegistro" novalidate action="" class="form">
+                      <!-- Nombre -->
+                      <div class="mb-3">
+                          <label for="nombre" class="form-label text-primary">Nombre:</label>
+                          <input required id="nombre" name="nombre" type="text" class="form-control" />
+                      </div>
+                      <!-- Apellidos -->
+                      <div class="mb-3">
+                          <label for="apellidos" class="form-label text-primary">Apellidos:</label>
+                          <input id="apellidos" name="apellidos" type="text" class="form-control" />
+                      </div>
+                      <!-- Email -->
+                      <div class="mb-3">
+                          <label for="email" class="form-label text-primary">Email:</label>
+                          <input required id="email" name="email" type="email" class="form-control" />
+                          <div class="invalid-feedback">El formato del email no es correcto</div>
+                      </div>
+                      <!-- Contraseña -->
+                      <div class="mb-3">
+                          <label for="pass" class="form-label text-primary">Contraseña:</label>
+                          <input required id="pass" name="password" minlength="6" type="password" class="form-control" />
+                          <div class="invalid-feedback">La contraseña debe tener como mínimo 6 caracteres</div>
+                      </div>
+                      <!-- Botón enviar -->
+                      <input type="submit" class="btn btn-primary w-100" value="Enviar" />
+                  </form>
+                  <!-- Link a inicio de sesión -->
+                  <a class="btn btn-secondary w-100 mt-3" href="#">¿Ya tienes cuenta? Inicia sesión</a>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
+
+
   `,
   script: () => {
     console.log('vista registro cargada')
