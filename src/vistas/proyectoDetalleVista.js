@@ -48,7 +48,12 @@ export default {
     const generarContenidoDetalle = (ejercicio, comentarios) => {
       let comentariosHTML = '';
       if (comentarios && comentarios.length > 0) {
-          comentariosHTML = comentarios.map(comment => `<div class="comment" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">${comment.comentario}</div>`).join('');
+        comentariosHTML = comentarios.map(comment => `
+        <div class="comment d-flex justify-content-between align-items-center border mb-3 p-3">
+        <div>${comment.comentario}</div>
+        <button id="btnBorrarComentario" class="btn btn-danger btn-sm btn-borrar"><i class="bi bi-trash3"></i></button>
+        </div>`).join('');
+
       }
 
       return `
@@ -88,7 +93,9 @@ export default {
           <h3>Comentarios</h3>
           <textarea id="txtComentario" class="form-control" rows="3"></textarea>
           <button id="btnEnviarComentario" class="btn btn-primary mt-2">Enviar Comentario</button>
-          <div id="comentariosContainer" class="mt-3">${comentariosHTML}</div>
+          <div id="comentariosContainer" class="mt-3">
+          ${comentariosHTML}
+          </div>
         </div>
         
         
@@ -181,5 +188,33 @@ if (usuario && usuario.rol === 'registrado') {
       // Redirige al usuario a la página de edición del ejercicio pasando el ID como parámetro
       window.location = `#/proyectoEditar/${id}`;
     });
+
+    
+// Agregar un evento de clic delegado al contenedor de comentarios
+document.getElementById('comentariosContainer').addEventListener('click', async (event) => {
+  // Verificar si el clic se realizó en un botón de borrar comentario
+  if (event.target.classList.contains('btnBorrarComentario')) {
+    const comentarioId = event.target.dataset.comentarioId; 
+
+    if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+      try {
+        const { error } = await supabase
+          .from('comentarios')
+          .delete()
+          .eq('id', comentarioId);
+
+        if (error) {
+          throw error;
+        }
+
+        alert('Comentario eliminado correctamente');
+        console.log('Comentario eliminado de la base de datos');
+      } catch (error) {
+        console.error('Error al eliminar comentario:', error.message);
+        alert('Error al eliminar comentario. Por favor, inténtalo de nuevo.');
+      }
+    }
   }
-};
+});
+}
+}

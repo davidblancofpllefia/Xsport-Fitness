@@ -19,7 +19,7 @@ export default {
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="emailLogin" class="form-label text-primary">Email:</label>
-                            <input id="emailLogin" name="email" value="prueba@gmail.com" required type="email" class="form-control" />
+                            <input id="emailLogin" name="email" value="macximun3@gmail.com" required type="email" class="form-control" />
                             <div class="invalid-feedback">El formato del email no es correcto</div>
                         </div>
                         <!-- Contraseña -->

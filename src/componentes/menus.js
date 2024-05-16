@@ -66,7 +66,7 @@ const menuUsuario = {
         <li id="emailUserMenu" class=" text-end p-2 small">
           ${ls.getUsuario().email}
         </li>
-        <li id="rolUserMenu" class=" text-end pe-2 small fst-italic">
+        <li id="rolUserMenu" class=" text-center  pe-2 small fst-italic">
           ${ls.getUsuario().rol}
         </li>
         <li><hr class="dropdown-divider" /></li>
@@ -100,10 +100,10 @@ const menuUsuario = {
       <img id="avatarMenu" src="images/avatar.svg" alt="" width="25" />
     </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-        <li id="emailUserMenu" class="text-light text-end p-2 small">
+        <li id="emailUserMenu" class="text text-center p-2 small">
           ${ls.getUsuario().email}
         </li>
-        <li id="rolUserMenu" class="text-light text-end p-2 small">
+        <li id="rolUserMenu" class="text text-end p-2 small">
           ${ls.getUsuario().rol}
         </li>
         <li><hr class="dropdown-divider" /></li>
@@ -137,10 +137,10 @@ const menuUsuario = {
         <img id="avatarMenu" src="images/avatar.svg" alt="" width="25" />
       </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-        <li id="emailUserMenu" class="text-light text-end p-2 small">
+        <li id="emailUserMenu" class="text text-end p-2 small">
           ${ls.getUsuario().email}
         </li>
-        <li id="rolUserMenu" class="text-light text-end p-2 small">
+        <li id="rolUserMenu" class="text text-center p-2 small">
           ${ls.getUsuario().rol}
         </li>
         <li><hr class="dropdown-divider" /></li>
