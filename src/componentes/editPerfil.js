@@ -1,9 +1,10 @@
+import { ls } from './funciones';
+import { Perfil } from '../bd/perfil';
 
-import { ls } from './funciones'
 export const editarPerfil = {
   template: // html
   `
-  <!-- Ventana modaledición perfil -->
+  <!-- Ventana modal edición perfil -->
   <div
     class="modal fade"
     id="modalEditarPerfil"
@@ -60,24 +61,6 @@ export const editarPerfil = {
                   <!-- Apellidos -->
                   <label for="apellidosPerfil" class="form-label">Apellidos:</label>
                   <input id="apellidosPerfil" type="text" class="form-control" value = "${ls.getUsuario().apellidos}" />
-
-                  <!-- Email -->
-                  <label for="emailPerfil" class="form-label">Email:</label>
-                  <input required id="emailPerfil" type="email" class="form-control" value = "${ls.getUsuario().email}" />
-                  <div class="invalid-feedback">El formato no es correcto</div>
-
-                  <!-- Contraseña -->
-                  <label for="passPerfil" class="form-label mt-3">Nueva contraseña:</label>
-                  <input
-                    
-                    minlength="6"
-                    id="passPerfil"
-                    type="password"
-                    class="form-control"
-                  />
-                  <div class="invalid-feedback">
-                    La contraseña debe ser de 6 caracteres como mínimo
-                  </div>
                 </div>
               </div>
             </div>
@@ -86,7 +69,7 @@ export const editarPerfil = {
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Cancelar
             </button>
-            <button id="enviarPerfilEditado" data-id = ${ls.getUsuario().user_id} type="submit" class="btn btn-primary">Guardar cambios</button>
+            <button id="enviarPerfilEditado" data-id="${ls.getUsuario().user_id}" type="submit" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -94,38 +77,67 @@ export const editarPerfil = {
   </div>
   `,
   script: () => {
-    console.log('script editar perfil cargado')
-    // Validación bootstrap
-    // Capturamos el formulario en una variable
-    const formulario = document.querySelector('#formularioEditarPerfil')
-    // Detectamos su evento submit (enviar)
-    formulario.addEventListener('submit', (event) => {
-    // Comprobamos si el formulario no valida
-    // Detenemos el evento enviar (submit)
-      event.preventDefault()
-      event.stopPropagation()
-      if (!formulario.checkValidity()) {
-        // formulario no valida
-      } else {
-        //* ** ENVIAMOS DATOS A LA BASE DE DATOS */
-        enviaDatos()
-      }
-      // Y añadimos la clase 'was-validate' para que se muestren los mensajes
-      formulario.classList.add('was-validated')
-    })
+    console.log('script editar perfil cargado');
 
-    // Función para enviar datos a la base de datos
-    function enviaDatos () {
+    // Función para actualizar el formulario con los datos del perfil del usuario
+    function actualizarFormularioPerfil(perfilUsuario) {
+      document.getElementById('nombrePerfil').value = perfilUsuario.nombre;
+      document.getElementById('apellidosPerfil').value = perfilUsuario.apellidos;
+      document.getElementById('avatar').value = perfilUsuario.avatar;
+    }
+
+    // Verificar si hay un usuario logueado y actualizar el formulario con sus datos
+    const usuario = ls.getUsuario();
+    if (usuario.user_id) {
+      Perfil.getByUserId(usuario.user_id)
+        .then(perfil => {
+          actualizarFormularioPerfil(perfil);
+        })
+        .catch(error => {
+          console.error('Error obteniendo el perfil del usuario:', error.message);
+        });
+    }
+
+    const formulario = document.querySelector('#formularioEditarPerfil');
+    formulario.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!formulario.checkValidity()) {
+        formulario.classList.add('was-validated');
+      } else {
+        enviaDatos();
+      }
+    });
+
+    async function enviaDatos() {
       const perfilEditado = {
         avatar: document.querySelector('#avatar').value,
         nombre: document.querySelector('#nombrePerfil').value,
         apellidos: document.querySelector('#apellidosPerfil').value,
-        email: document.querySelector('#emailPerfil').value,
-        contraseña: document.querySelector('#passPerfil').value
+      };
 
+      try {
+        const userId = ls.getUsuario().user_id;
+        if (!userId) {
+          throw new Error("El ID del usuario no está definido.");
+        }
+
+        const perfilActualizado = await Perfil.updateByUserId(userId, perfilEditado);
+
+        // Actualizamos localStorage con los nuevos datos del perfil
+        ls.setUsuario({
+          ...ls.getUsuario(),
+          ...perfilEditado,
+        });
+
+        // Actualizar la interfaz del usuario con los nuevos datos
+        document.querySelector('.imagen.mx-auto.mb-1.rounded-circle').style.backgroundImage = `url(${perfilEditado.avatar})`;
+
+        alert('Perfil actualizado con éxito');
+      } catch (error) {
+        console.error('Error actualizando el perfil:', error.message);
+        alert('Error actualizando el perfil. Por favor, intenta de nuevo.');
       }
-      alert(`Enviando a la base de datos el objeto con id = ${ls.getUsuario().user_id}`)
-      console.log(`Enviando a la base de datos el objeto con user_id = ${ls.getUsuario().user_id}`, perfilEditado)
     }
   }
-}
+};

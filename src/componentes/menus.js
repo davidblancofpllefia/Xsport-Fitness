@@ -135,6 +135,7 @@ const menuUsuario = {
         aria-expanded="false"
       >
         <img id="avatarMenu" src="images/avatar.svg" alt="" width="25" />
+        
       </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
         <li id="emailUserMenu" class="text-light text-end p-2 small">

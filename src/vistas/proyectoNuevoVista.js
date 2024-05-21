@@ -1,6 +1,4 @@
-
 import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
-
 
 export default {
   template: `
@@ -116,4 +114,3 @@ export default {
     }
   }
 }
-

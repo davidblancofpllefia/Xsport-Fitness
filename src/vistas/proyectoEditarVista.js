@@ -1,7 +1,6 @@
 import { supabase } from '../bd/supabase';
 
 export default {
-
   template: `
     <div class="container">
       <h1 class="mt-5">Editar Ejercicio</h1>
@@ -63,7 +62,6 @@ export default {
           </div>
       </div>
     </div>
-
   `,
   script: (id) => {
     // Consultar el ejercicio por su ID
@@ -76,7 +74,6 @@ export default {
           console.error('Error al obtener el ejercicio:', error.message);
           return;
         }
-
 
         // Llenar los campos del formulario con los detalles del ejercicio
         document.querySelector('#imagenEjercicio').src = proyecto.foto || 'images/imagenVacia.png';

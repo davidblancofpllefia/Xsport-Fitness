@@ -475,7 +475,7 @@ export default {
         imagen: document.querySelector('#urlImagen_' + id).value,
         nombre: document.querySelector('#nombreUsuario_' + id).value,
         apellidos: document.querySelector('#apellidosUsuario_' + id).value,
-        estado: document.querySelector('#estado_' + id).value,
+        rol: document.querySelector('#estado_' + id).value,
         email: document.querySelector('#email_' + id).value
       }
       // eslint-disable-next-line no-undef
