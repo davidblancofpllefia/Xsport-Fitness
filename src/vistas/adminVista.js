@@ -4,7 +4,8 @@ import { editarImagenPerfil } from '../componentes/editarImagenPerfil'
 import { supabase } from '../bd/supabase'
 
 export default {
-  template: `
+  template: //html
+  `
   <div class="container">
     <h1 class="mt-5">Panel de administración</h1>
     <div class="row mt-5">
@@ -61,150 +62,197 @@ export default {
   script: async () => {
     // Capturamos los datos del usuario logueado
     const usuario = ls.getUsuario();
+  
+// Función para borrar un usuario de la base de datos
+async function borrarUsuario(id) {
+  try {
+    const { data, error } = await supabase
+      .from('perfiles')
+      .delete()
+      .eq('id', id);
 
-    // *** FUNCIÓN PARA OBTENER Y PINTAR LA TABLA DE USUARIOS ***
-    const obtenerUsuarios = async () => {
-      try {
-        const { data: usuarios, error } = await supabase.from('perfiles').select('*');
+    if (error) {
+      throw error;
+    }
 
-        if (error) {
-          throw error;
-        }
+    if (data) {
+      alert('Usuario eliminado correctamente');
+      console.log('Usuario eliminado de la base de datos', data);
+      // Actualizar la lista de usuarios después de eliminar uno
+      obtenerUsuarios();
+    } else {
+      alert('No se pudo eliminar el usuario');
+    }
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error.message);
+    alert('Error al eliminar usuario. Por favor, inténtalo de nuevo.');
+  }
+}
 
-        // Pintar la tabla de usuarios con los datos obtenidos
-        pintaUsuarios(usuarios);
-      } catch (error) {
-        console.error('Error al obtener usuarios desde la base de datos:', error.message);
-      }
-    };
+// Evento para manejar el click en el botón eliminar
+document.querySelector('main').addEventListener('click', (event) => {
+  if (event.target.classList.contains('botonEliminar')) {
+    const id = event.target.dataset.id;
+    borrarUsuario(id);
+  }
+});
 
-    // Llamamos a la función para obtener y pintar la tabla de usuarios al cargar la página
-    obtenerUsuarios();
 
-    // *** FUNCIÓN PARA PINTAR LA TABLA DE USUARIOS ***
-    const pintaUsuarios = (usuariosFiltrados) => {
-      let tablaUsuarios = `
-        <!-- Tabla de usuarios -->
-        <table class="table table-hover align-middle mt-3" style="min-width: 1200px">
-          <thead>
-            <tr>
-              <th></th>
-              <th>URL imagen</th>
-              <th>Email</th>
-              <th>Nombre</th>
-              <th>Apellidos</th>
-              <th>Rol</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
+// Evento para manejar el click en el botón eliminar
+document.querySelector('main').addEventListener('click', (event) => {
+  if (event.target.classList.contains('botonEliminar')) {
+    const id = event.target.dataset.id;
+    borrarUsuario(id);
+  }
+});
 
-      usuariosFiltrados.forEach(usuario => {
-        tablaUsuarios += `
-          <tr>
-            <td>
-              <div class="containerImagen">
-                <div class="rounded-circle d-flex align-items-end justify-content-end" style="
-                    background-image: url(${usuario.avatar || 'images/imagenVacia.png'});
-                    width: 50px;
-                    height: 50px;
-                    background-size: cover;
-                    background-position: center;
-                  ">
-                  <i
-                    data-id="${usuario.user_id}"
-                    data-urlavatar="${usuario.avatar}"
-                    data-urlinputavatar="urlImagen_${usuario.user_id}"
-                    class="btn btn-success btn-sm rounded-circle bi bi-pencil botonEditarImagen"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalEditarImagenPerfil"
-                  ></i>
-                </div>
-              </div>
-            </td>
-            <td>
-              <!-- URL imagen -->
-              <input
-                id="urlImagen_${usuario.user_id}"
-                type="url"
-                class="form-control form-control-sm"
-                value="${usuario.avatar || ''}"
-              />
-              <div class="invalid-feedback">
-                La URL no es válida
-              </div>
-            </td>
-            <td>
-              <!-- Email -->
-              <input
-                required
-                id="email_${usuario.user_id}"
-                type="email"
-                class="form-control form-control-sm"
-                value="${usuario.email || ''}"
-              />
-              <div class="invalid-feedback">
-                Formato incorrecto
-              </div>
-            </td>
-            <td>
-              <!-- Nombre -->
-              <input
-                required
-                id="nombreUsuario_${usuario.user_id}"
-                type="text"
-                class="form-control form-control-sm"
-                value="${usuario.nombre || ''}"
-              />
-              <div class="invalid-feedback">
-                Nombre requerido
-              </div>
-            </td>
-            <td>
-              <!-- Apellidos -->
-              <input
-                id="apellidosUsuario_${usuario.user_id}"
-                type="text"
-                class="form-control form-control-sm"
-                value="${usuario.apellidos || ''}"
-              />
-            </td>
-            <td>
-              <!-- Rol -->
-              <select class="form-control form-control-sm" name="" id="rol_${usuario.user_id}">
-                <option value="${usuario.rol || ''}">${usuario.rol || ''}</option>
-                <option value="registrado">Registrado</option>
-                <option value="desarrollador">Desarrollador</option>
-                <option value="admin">Admin</option>
-              </select>
-            </td>
-            <td>
-              <!-- Estado -->
-              <select class="form-control form-control-sm" name="" id="estado_${usuario.user_id}">
-                <option value="${usuario.estado || ''}">${usuario.estado || ''}</option>
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-              </select>
-            </td>
-            <td>
-              <button data-id="${usuario.user_id}" class="btn btn-sm btn-outline-danger bi bi-trash3 botonEliminar"></button>
-              <button data-id="${usuario.user_id}" type="submit" class="btn btn-sm btn-success botonActualizar">Actualizar</button>
-            </td>
-          </tr>
-        `;
-      });
 
-      tablaUsuarios += '</tbody></table>';
 
-      document.querySelector('#tabUsuarios').innerHTML = tablaUsuarios;
-    };
+// Función para obtener y pintar la tabla de usuarios
+async function obtenerUsuarios() {
+  try {
+    const { data: usuarios, error } = await supabase.from('perfiles').select('*');
+
+    if (error) {
+      throw error;
+    }
+
+    // Pintar la tabla de usuarios con los datos obtenidos
+    pintaUsuarios(usuarios);
+  } catch (error) {
+    console.error('Error al obtener usuarios desde la base de datos:', error.message);
+  }
+}
+
+// *** FUNCIÓN PARA PINTAR LA TABLA DE USUARIOS ***
+const pintaUsuarios = (usuariosFiltrados) => {
+  let tablaUsuarios = `
+    <!-- Tabla de usuarios -->
+    <table class="table table-hover align-middle mt-3" style="min-width: 1200px">
+      <thead>
+        <tr>
+          <th></th>
+          <th>URL imagen</th>
+          <th>Email</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  usuariosFiltrados.forEach(usuario => {
+    tablaUsuarios += `
+      <tr>
+        <td>
+          <div class="containerImagen">
+            <div class="rounded-circle d-flex align-items-end justify-content-end" style="
+                background-image: url(${usuario.avatar || 'images/imagenVacia.png'});
+                width: 50px;
+                height: 50px;
+                background-size: cover;
+                background-position: center;
+              ">
+              <i
+                data-id="${usuario.user_id}"
+                data-urlavatar="${usuario.avatar}"
+                data-urlinputavatar="urlImagen_${usuario.user_id}"
+                class="btn btn-success btn-sm rounded-circle bi bi-pencil botonEditarImagen"
+                data-bs-toggle="modal"
+                data-bs-target="#modalEditarImagenPerfil"
+              ></i>
+            </div>
+          </div>
+        </td>
+        <td>
+          <!-- URL imagen -->
+          <input
+            id="urlImagen_${usuario.user_id}"
+            type="url"
+            class="form-control form-control-sm"
+            value="${usuario.avatar || ''}"
+          />
+          <div class="invalid-feedback">
+            La URL no es válida
+          </div>
+        </td>
+        <td>
+          <!-- Email -->
+          <input
+            required
+            id="email_${usuario.user_id}"
+            type="email"
+            class="form-control form-control-sm"
+            value="${usuario.email || ''}"
+          />
+          <div class="invalid-feedback">
+            Formato incorrecto
+          </div>
+        </td>
+        <td>
+          <!-- Nombre -->
+          <input
+            required
+            id="nombreUsuario_${usuario.user_id}"
+            type="text"
+            class="form-control form-control-sm"
+            value="${usuario.nombre || ''}"
+          />
+          <div class="invalid-feedback">
+            Nombre requerido
+          </div>
+        </td>
+        <td>
+          <!-- Apellidos -->
+          <input
+            id="apellidosUsuario_${usuario.user_id}"
+            type="text"
+            class="form-control form-control-sm"
+            value="${usuario.apellidos || ''}"
+          />
+        </td>
+        <td>
+          <!-- Rol -->
+          <select class="form-control form-control-sm" name="" id="rol_${usuario.user_id}">
+            <option value="${usuario.rol || ''}">${usuario.rol || ''}</option>
+            <option value="registrado">Registrado</option>
+            <option value="desarrollador">Desarrollador</option>
+            <option value="admin">Admin</option>
+          </select>
+        </td>
+        <td>
+          <!-- Estado -->
+          <select class="form-control form-control-sm" name="" id="estado_${usuario.user_id}">
+            <option value="${usuario.estado || ''}">${usuario.estado || ''}</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </td>
+        <td>
+          <button data-id="${usuario.user_id}" class="btn btn-sm btn-outline-danger bi bi-trash3 botonEliminar"></button>
+          <button data-id="${usuario.user_id}" type="submit" class="btn btn-sm btn-success botonActualizar">Actualizar</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  tablaUsuarios += '</tbody></table>';
+
+  document.querySelector('#tabUsuarios').innerHTML = tablaUsuarios;
+};
+
+// Llamamos a la función para obtener y pintar la tabla de usuarios al cargar la página
+obtenerUsuarios();
+
+
 
     // *** Pintamos los datos en tabla y tarjetas ***
     pintaProyectos(datosProyectos)
     pintaUsuarios(datosUsuarios)
-
+  
     // *** FILTRO PARA BUSCADOR ***
     // Capturamos el input de búsqueda
     const inputBusqueda = document.getElementById('inputBusqueda')
@@ -262,100 +310,133 @@ export default {
         if (boton.classList.contains('botonEditar')) {
           // Si se trata de editar
           console.log('Editar proyecto ' + id)
-
+  
           // Cargamos la vista para editar proyecto pasandole como parámetro el id
           window.location = `#/proyectoEditar/${id}`
         }
         if (boton.classList.contains('botonBorrar')) {
           // Si se trata de borrar
           console.log('Borrar proyecto ' + id)
-
+  
           // *** AQUÍ VA LA FUNCIÓN QUE BORRA DE LA BASE DE DATOS EL PROYECTO CORRESPONDIENTE AL ID ***
         }
       }
     })
-
+  
     // *************** PARA EL TAB DE USUARIOS ********
 
-// Capturamos el formulario para edición de usuarios
-const formulario = document.querySelector('#formAdminUsuarios');
-
-// Gestión de click sobre botones dentro del formulario
-formulario.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  // Si hacemos click sobre el botonActualizar
-  if (e.target.classList.contains('botonActualizar') && formulario.checkValidity()) {
-    const id = e.target.dataset.id;
-    enviaDatos(id);
-  } else {
-    formulario.classList.add('was-validated');
-  }
-
-  // Si hacemos click sobre Borrar registro
-  if (e.target.classList.contains('botonEliminar')) {
-    const tr = e.target.parentNode.parentNode;
-    // ocultar tr
-    tr.classList.add('d-none');
-    const id = e.target.dataset.id;
-    borrarUsuario(id);
-  }
-
-  // Si hacemos click sobre Editar imagen avatar
-  if (e.target.classList.contains('botonEditarImagen')) {
-    // Capturamos datos para enviar al modal
-    const urlAvatar = e.target.dataset.urlavatar;
-    const urlInputAvatar = e.target.dataset.urlinputavatar;
-    const id = e.target.dataset.id;
-    // Abrimos ventana de edición de perfil (del componente editarImagenPerfil)
-    editarImagenPerfil.script(urlAvatar, urlInputAvatar, id);
-  }
-});
-
-// *** VALIDACION DE FORMULARIOS CON BOOTSTRAP ***
-formulario.addEventListener('change', (e) => {
-  // Comprobamos si el formulario no valida
-  if (!formulario.checkValidity()) {
-    console.log('No valida');
-    // Y añadimos la clase 'was-validate' para que se muestren los mensajes
-    formulario.classList.add('was-validated');
-  }
-});
-
-// Función para enviar datos a la base de datos
-async function enviaDatos(id) {
-  // Capturamos los datos del usuario correspondiente al ID
-  const usuarioEditado = {
-    imagen: document.querySelector(`#urlImagen_${id}`).value,
-    nombre: document.querySelector(`#nombreUsuario_${id}`).value,
-    apellidos: document.querySelector(`#apellidosUsuario_${id}`).value,
-    email: document.querySelector(`#email_${id}`).value
-  };
-  alert(`Enviando a la base de datos el objeto con id = ${id}`);
-  console.log(`Enviando a la base de datos el objeto con id = ${id}`, usuarioEditado);
-}
-
-// Función para borrar un usuario de la base de datos
+  
+    // Función para actualizar los datos de un usuario en la base de datos
+    async function enviaDatos(id) {
+      // capturamos los datos del tr correspondiente al botón pulsado
+      const usuarioEditado = {
+        avatar: document.querySelector('#urlImagen_' + id).value,
+        nombre: document.querySelector('#nombreUsuario_' + id).value,
+        apellidos: document.querySelector('#apellidosUsuario_' + id).value,
+        email: document.querySelector('#email_' + id).value,
+        rol: document.querySelector('#rol_' + id).value,
+        estado: document.querySelector('#estado_' + id).value
+      };
+  
+      try {
+        const { data, error } = await supabase
+          .from('perfiles')
+          .update(usuarioEditado)
+          .eq('user_id', user_id);
+  
+        if (error) {
+          throw error;
+        }
+  
+        alert('Usuario actualizado correctamente');
+        console.log('Usuario actualizado en la base de datos', data);
+        // Actualizar la lista de usuarios después de actualizar uno
+        actualizarListaUsuarios();
+      } catch (error) {
+        console.error('Error al actualizar usuario:', error.message);
+        alert('Error al actualizar usuario. Por favor, inténtalo de nuevo.');
+      }
+    }
+  
+    // Función para obtener y actualizar la lista de usuarios desde la base de datos
+    async function actualizarListaUsuarios() {
+      try {
+        const { data: usuarios, error } = await supabase
+          .from('perfiles')
+          .select('*');
+  
+        if (error) {
+          throw error;
+        }
+  
+        // Vuelve a pintar la lista de usuarios con los datos actualizados
+        pintaUsuarios(usuarios);
+      } catch (error) {
+        console.error('Error al actualizar la lista de usuarios:', error.message);
+      }
+    }
+  
+    // Capturamos el formulario para edición de usuarios
+    const formulario = document.querySelector('#formAdminUsuarios');
+  
+    // Gestión de click sobre botones dentro del formulario
+    formulario.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+  
+      // Si hacemos click sobre el botonActualizar
+      if (e.target.classList.contains('botonActualizar') && formulario.checkValidity()) {
+        const id = e.target.dataset.id;
+        enviaDatos(id);
+      } else {
+        formulario.classList.add('was-validated');
+      }
+  
+      // Si hacemos click sobre Borrar registro
+      if (e.target.classList.contains('botonEliminar')) {
+        const tr = e.target.parentNode.parentNode;
+        // ocultar tr
+        tr.classList.add('d-none');
+        const id = e.target.dataset.id;
+        borrarUsuario(id);
+      }
+  
+      // Si hacemos click sobre Editar imagen avatar
+      if (e.target.classList.contains('botonEditarImagen')) {
+        // Capturamos datos para enviar al modal
+        const urlAvatar = e.target.dataset.urlavatar;
+        const urlInputAvatar = e.target.dataset.urlinputavatar;
+        const id = e.target.dataset.id;
+        // Abrimos ventana de edición de perfil (del componente editarImagenPerfil)
+        editarImagenPerfil.script(urlAvatar, urlInputAvatar, id);
+      }
+    });
+  
+    // *** VALIDACION DE FORMULARIOS CON BOOTSTRAP ***
+    formulario.addEventListener('change', (e) => {
+      // Comprobamos si el formulario no valida
+      if (!formulario.checkValidity()) {
+        console.log('No valida');
+        // Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add('was-validated');
+      }
+    });
+    // Función para borrar un usuario de la base de datos
 async function borrarUsuario(id) {
   try {
     const { data, error } = await supabase
       .from('perfiles')
       .delete()
-      .eq('user_id', id);
+      .eq('user_id', id); 
 
     if (error) {
       throw error;
     }
 
-    // Verificar si se eliminó el usuario correctamente
     if (data) {
       alert('Usuario eliminado correctamente');
       console.log('Usuario eliminado de la base de datos', data);
-      // Actualizar la lista de usuarios después de eliminar uno
-      actualizarListaUsuarios();
-    } else {
-      alert('Usuario no encontrado.');
+      obtenerUsuarios();
     }
   } catch (error) {
     console.error('Error al eliminar usuario:', error.message);
@@ -363,24 +444,18 @@ async function borrarUsuario(id) {
   }
 }
 
-// Función para obtener y actualizar la lista de usuarios desde la base de datos
-async function actualizarListaUsuarios() {
-  try {
-    const { data: usuarios, error } = await supabase
-      .from('perfiles')
-      .select('*');
-
-    if (error) {
-      throw error;
+// Evento para manejar el click en el botón eliminar
+document.querySelector('main').addEventListener('click', (event) => {
+  if (event.target.classList.contains('botonEliminar')) {
+    const id = event.target.dataset.id;
+    if (id) {
+      borrarUsuario(id);
+    } else {
+      console.error('Error: el ID del usuario es nulo o indefinido');
+      alert('Error al eliminar usuario. ID de usuario no válido.');
     }
-
-    
-    pintaUsuarios(datosUsuarios);
-  } catch (error) {
-    console.error('Error al actualizar la lista de usuarios:', error.message);
   }
-}
-
-
-} 
+});
+  }
+  
 }

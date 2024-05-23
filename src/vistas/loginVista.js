@@ -33,13 +33,11 @@ export default {
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked />
                             <label class="form-check-label text-primary" for="flexCheckChecked">Recordar sesión</label>
                         </div>
-                        <!-- Link a recordar contraseña -->
-                        <a class="mb-3 d-block text-end text-primary" href="#">¿Has olvidado tu contraseña?</a>
                         <!-- Botón Iniciar sesión -->
                         <input type="submit" class="btn btn-primary w-100" value="Iniciar sesión" />
                     </form>
                     <!-- Link a registro -->
-                    <a class="btn btn-secondary w-100 mt-3" href="#">¿Eres nuevo? Regístrate</a>
+                    <input type="submit" class="btn btn-secondary w-100 mt-3 botonRegistro"  value="¿Eres nuevo? Regístrate"/>
                 </div>
             </div>
         </div>
@@ -92,6 +90,14 @@ export default {
         }
       }
     });
+
+    // Obtener el botón de registro por su clase CSS
+  const botonRegistro = document.querySelector('.botonRegistro');
+  // Agregar un listener de eventos para el clic en el botón de registro
+  botonRegistro.addEventListener('click', () => {
+  window.location.href = '#/registro';
+  });
+
 
     function mostrarMenuUsuario() {
       const menuUsuarioContainer = document.querySelector('#menuUsuario');

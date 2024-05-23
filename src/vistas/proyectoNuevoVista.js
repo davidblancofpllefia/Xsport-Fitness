@@ -3,7 +3,8 @@ import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
 
 
 export default {
-  template: `
+  template: //html
+  `
   <div class="container">
   <h1 class="mt-5">Nuevo Ejercicio</h1>
   <div class="d-flex justify-content-end">
