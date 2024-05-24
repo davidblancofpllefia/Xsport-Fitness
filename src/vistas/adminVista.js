@@ -68,9 +68,15 @@ export default {
  ${editarImagenPerfil.template} 
   `,
   script: () => {
-    // Capturamos los datos del usuario logueado
-    const usuario = ls.getUsuario()
+     // Obtiene la información del usuario
+      const usuario = ls.getUsuario();
 
+      // Verifica si el usuario no está autenticado o es un usuario registrado
+      if (!usuario || usuario.rol === 'registrado') {
+       // Redirige a la página de registro
+       window.location = '#/home';
+       return;
+     }
     // **** AQUI DEBEMOS CAPTURAR LOS PROYECTOS DE LA BASE DE DATOS ****
 
     // Capturamos proyectos y guardamos en variable para poder ser filtrada

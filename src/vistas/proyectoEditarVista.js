@@ -1,4 +1,6 @@
 import { supabase } from '../bd/supabase';
+import { ls } from '../componentes/funciones'
+
 
 export default {
   template: `
@@ -64,6 +66,15 @@ export default {
     </div>
   `,
   script: (id) => {
+      // Obtiene la información del usuario
+      const usuario = ls.getUsuario();
+
+      // Verifica si el usuario no está autenticado o es un usuario registrado
+      if (!usuario || usuario.rol === 'registrado') {
+       // Redirige a la página de registro
+       window.location = '#/home';
+       return;
+     }
     // Consultar el ejercicio por su ID
     supabase
       .from('ejercicios')

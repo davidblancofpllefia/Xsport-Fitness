@@ -1,4 +1,5 @@
 import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
+import { ls } from '../componentes/funciones'
 
 export default {
   template: `
@@ -65,6 +66,15 @@ export default {
 
   `,
   script: () => { //HICE EL BOTON VOLVER EN MAIN DIRECTAMENTE SI NO VA HACERLO AQUI Y LUEGO EL MERGE IRA
+    // Obtiene la información del usuario
+    const usuario = ls.getUsuario();
+
+    // Verifica si el usuario no está autenticado o es un usuario registrado
+    if (!usuario || usuario.rol === 'registrado') {
+     // Redirige a la página de registro
+     window.location = '#/home';
+     return;
+   }
     // Captura el formulario
     const formulario = document.querySelector('#formularioNuevoEjercicio');
 

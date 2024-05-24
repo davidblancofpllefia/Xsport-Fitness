@@ -10,6 +10,12 @@ export default {
   `,
   script: async () => {
     const usuario = ls.getUsuario();
+     // Verifica si el usuario no está autenticado o es un usuario registrado
+     if (!usuario) {
+      // Redirige a la página de registro
+      window.location = '#/home';
+      return;
+    }
 
     const segments = window.location.hash.split('/'); // Dividir la URL en segmentos
     const idString = segments[segments.length - 1]; // Obtener el último segmento que debería contener el ID
