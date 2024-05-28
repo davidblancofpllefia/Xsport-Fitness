@@ -45,6 +45,10 @@ export default {
   `,
   script: () => {
     console.log('vista login cargada');
+    document.querySelector('.botonRegistro').addEventListener('click', (event) => {
+      // Redirigir a la página de proyectos
+      window.location = '#/registro';
+    })
 
     const formulario = document.querySelector('#formularioLogin');
 

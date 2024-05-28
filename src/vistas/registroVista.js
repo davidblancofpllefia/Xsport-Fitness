@@ -49,7 +49,10 @@ export default {
   script: () => {
     console.log('vista registro cargada')
     // Validación bootstrap
-
+    document.querySelector('.botonLogin').addEventListener('click', (event) => {
+      // Redirigir a la página de proyectos
+      window.location = '#/login';
+    })
     // Capturamos el formulario en una variable
     const formulario = document.querySelector('#formularioRegistro')
     // Detectamos su evento submit (enviar)
