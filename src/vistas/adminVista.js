@@ -70,6 +70,15 @@ export default {
         console.error('Error al obtener usuarios desde la base de datos:', error.message);
       }
     }
+    // *** Detectamos si se cambia de proyectos a usuarios al hacer click en las pestañas ***
+    document.querySelector('.fichaProyectos').addEventListener('click', (event) => {
+      // Redirigir a la página de proyectos
+      window.location = '#/proyectos';
+    })
+    document.querySelector('.fichaUsuarios').addEventListener('click', (event) => {
+      // Redirigir a la página de proyectos
+      window.location = '#/admin';
+    })
     
     // Función para pintar la tabla de usuarios
     const pintaUsuarios = (usuarios) => {
