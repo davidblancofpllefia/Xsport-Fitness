@@ -130,7 +130,7 @@ export default {
               <select class="form-control form-control-sm" id="rol_${usuario.user_id}">
                 <option value="${usuario.rol || ''}">${usuario.rol || ''}</option>
                 <option value="registrado">Registrado</option>
-                <option value="desarrollador">Desarrollador</option>
+                <option value="entrenador">Entrenador</option>
                 <option value="admin">Admin</option>
               </select>
             </td>

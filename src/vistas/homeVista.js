@@ -85,7 +85,7 @@ const pintarEjercicios = () => {
                 window.location = `#/proyectoDetalle/${id}`;
             } else {
                 // Si el usuario no está logueado, redirige a la página de registro
-                window.location = '#/registro';
+                window.location = '#/login';
             }
         });
     });
@@ -116,7 +116,7 @@ const filtrarEjercicios = (texto) => {
                 window.location = `#/proyectoDetalle/${id}`;
             } else {
                 // Si el usuario no está logueado, redirige a la página de registro
-                window.location = '#/registro';
+                window.location = '#/login';
             }
         });
     });

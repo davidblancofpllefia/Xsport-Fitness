@@ -7,26 +7,41 @@ import { menuUsuario } from '../componentes/menus';
 export default {
   template: //html
   `
-    <div class="container">
-      <h1 class="mt-5 text-center">Inicia sesión</h1>
-      <div class="m-5 mx-auto" style="max-width: 400px">
-        <form id="formularioLogin" novalidate action="" class="form border shadow-sm p-3">
-          <label for="emailLogin" class="form-label">Email:</label>
-          <input id="emailLogin" name="email" value="macximun3@gmail.com" required type="email" class="form-control" />
-          <div class="invalid-feedback">El formato del email no es correcto</div>
-          <label for="passLogin" class="form-label mt-3">Contraseña:</label>
-          <input value="prueba123" id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
-          <div class="invalid-feedback">La contraseña debe tener como mínimo 6 caracteres</div>
-          <div class="form-check mt-3">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked />
-            <label class="form-check-label" for="flexCheckChecked">Recordar sesión</label>
-          </div>
-          <a class="d-block text-end" href="#">¿Has olvidado tu contraseña?</a>
-          <input type="submit" class="btn btn-primary w-100 mt-3" value="Iniciar sesión" />
-        </form>
-        <a class="d-block mt-5 btn btn-secondary mx-auto" href="#">¿Eres nuevo? Regístrate</a>
-      </div>
+  <div class="container-fluid" style="background-image: url('./images/flexion.jpg'); background-size: cover; background-position: center;">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+            <div class="card shadow-lg rounded">
+                <div class="card-body p-5">
+                    <h1 class="mb-4 text-center text-primary">¡Bienvenido de vuelta!</h1>
+                    <!-- Formulario de inicio de sesión (login) -->
+                    <form id="formularioLogin" novalidate action="" class="form">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="emailLogin" class="form-label text-primary">Email:</label>
+                            <input id="emailLogin" name="email" value="macximun3@gmail.com" required type="email" class="form-control" />
+                            <div class="invalid-feedback">El formato del email no es correcto</div>
+                        </div>
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="passLogin" class="form-label text-primary">Contraseña:</label>
+                            <input value="prueba123" id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
+                            <div class="invalid-feedback">La contraseña debe tener como mínimo 6 caracteres</div>
+                        </div>
+                        <!-- Recordar contraseña -->
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked />
+                            <label class="form-check-label text-primary" for="flexCheckChecked">Recordar sesión</label>
+                        </div>
+                        <!-- Botón Iniciar sesión -->
+                        <input type="submit" class="btn btn-primary w-100" value="Iniciar sesión" />
+                    </form>
+                    <!-- Link a registro -->
+                    <input type="submit" class="btn btn-secondary w-100 mt-3 botonRegistro"  value="¿Eres nuevo? Regístrate"/>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
   `,
   script: () => {
     console.log('vista login cargada');

@@ -21,11 +21,6 @@ export default {
         </li>
         <!--Etiqueta Mis proyectos-->
         <li id="pestanyaMisProyectos" class="nav-item w-50">
-          <button 
-            class="selectorFicha fichaMisProyectos nav-link w-100"
-          >
-            Mis ejercicios
-          </button>
         </li>
       </ul>
     </div>
@@ -37,11 +32,6 @@ export default {
         <a id="botonSubirProyecto" href="#/proyectoNuevo" class="btn btn-primary w-100 router-link">Subir ejercicio</a>
       </div>
       <div class="d-flex col-12 col-sm-8 mb-3">
-        <!-- Botones para alternar entre vista de tabla o de tarjetas -->
-          <button class="vistaTabla btn btn-secondary me-2 bi bi-list">
-          </button>
-          <button class="vistaTarjetas btn btn-secondary me-2 bi bi-grid-3x3-gap ">
-        </button>
         <!-- Buscador -->
         <div class="input-group flex-nowrap">
           <span class="input-group-text" id="addon-wrapping"
