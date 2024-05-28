@@ -5,7 +5,8 @@ import { header } from '../componentes/header';
 import { menuUsuario } from '../componentes/menus';
 
 export default {
-  template: `
+  template: //html
+  `
     <div class="container">
       <h1 class="mt-5 text-center">Inicia sesión</h1>
       <div class="m-5 mx-auto" style="max-width: 400px">

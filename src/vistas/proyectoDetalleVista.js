@@ -3,7 +3,8 @@ import { ls } from '../componentes/funciones'
 
 
 export default {
-  template: `
+  template: //html
+  `
     <div class="container" id="ejercicioDetalleContainer">
       <!-- Contenido del ejercicio detallado se inyectará aquí -->
     </div>

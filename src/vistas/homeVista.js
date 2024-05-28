@@ -3,7 +3,8 @@ import { ls } from '../componentes/funciones'
 
 
 export default {
-  template: `
+  template: //html 
+  `
   <div class="imagenFondo d-flex align-items-center">
   <div class="container">
       <div class="textoInicio bg-light p-4 bg-opacity-75">
