@@ -68,9 +68,15 @@ export default {
  ${editarImagenPerfil.template} 
   `,
   script: () => {
-    // Capturamos los datos del usuario logueado
-    const usuario = ls.getUsuario()
+     // Obtiene la información del usuario
+      const usuario = ls.getUsuario();
 
+      // Verifica si el usuario no está autenticado o es un usuario registrado
+      if (!usuario || usuario.rol === 'registrado') {
+       // Redirige a la página de registro
+       window.location = '#/home';
+       return;
+     }
     // **** AQUI DEBEMOS CAPTURAR LOS PROYECTOS DE LA BASE DE DATOS ****
 
     // Capturamos proyectos y guardamos en variable para poder ser filtrada
@@ -320,7 +326,7 @@ export default {
                   <select class="form-control form-control-sm" name="" id="rol_${usuario.user_id}">
                     <option value="${usuario.rol}">${usuario.rol}</option>
                     <option value="registrado">registrado</option>
-                    <option value="desarrollador">desarrollador</option>
+                    <option value="entrenador">entrenador</option>
                     <option value="admin">admin</option>
                   </select>
                 </td>
@@ -475,7 +481,7 @@ export default {
         imagen: document.querySelector('#urlImagen_' + id).value,
         nombre: document.querySelector('#nombreUsuario_' + id).value,
         apellidos: document.querySelector('#apellidosUsuario_' + id).value,
-        estado: document.querySelector('#estado_' + id).value,
+        rol: document.querySelector('#estado_' + id).value,
         email: document.querySelector('#email_' + id).value
       }
       // eslint-disable-next-line no-undef

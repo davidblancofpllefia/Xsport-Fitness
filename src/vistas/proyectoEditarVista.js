@@ -1,4 +1,6 @@
 import { supabase } from '../bd/supabase';
+import { ls } from '../componentes/funciones'
+
 
 export default {
   template: `
@@ -13,8 +15,10 @@ export default {
       <div class="row mt-2">
           <div class="col-12 col-md-4 pt-2 mb-3">
               <img id="imagenEjercicio" alt="" class="img-fluid" />
-              <label class="form-label mt-2" for="urlImagen"><strong>URL imagen:</strong></label>
+              <label class="form-label mt-5" for="urlImagen"><strong>URL imagen:</strong></label>
               <input id="urlImagen" type="text" class="form-control" />
+              <label class="form-label mt-5" for="urlGif"><strong>URL GIF:</strong></label>
+              <input id="urlGif" type="text" class="form-control" />
           </div>
           <div class="col-12 col-md-8">
               <!-- Formulario nuevo ejercicio -->
@@ -62,6 +66,15 @@ export default {
     </div>
   `,
   script: (id) => {
+      // Obtiene la información del usuario
+      const usuario = ls.getUsuario();
+
+      // Verifica si el usuario no está autenticado o es un usuario registrado
+      if (!usuario || usuario.rol === 'registrado') {
+       // Redirige a la página de registro
+       window.location = '#/home';
+       return;
+     }
     // Consultar el ejercicio por su ID
     supabase
       .from('ejercicios')
@@ -76,6 +89,7 @@ export default {
         // Llenar los campos del formulario con los detalles del ejercicio
         document.querySelector('#imagenEjercicio').src = proyecto.foto || 'images/imagenVacia.png';
         document.querySelector('#urlImagen').value = proyecto.foto || '';
+        document.querySelector('#urlGif').value = proyecto.gif || '';
         document.querySelector('#nombreEjercicio').value = proyecto.titulo || '';
         document.querySelector('#descripcion').value = proyecto.descripcion || '';
         document.querySelector('#rutina').value = proyecto.rutina || '';
@@ -107,6 +121,7 @@ export default {
     function enviaDatos() {
       const proyectoEditado = {
         foto: document.querySelector('#urlImagen').value,
+        gif: document.querySelector('#urlGif').value,
         titulo: document.querySelector('#nombreEjercicio').value,
         descripcion: document.querySelector('#descripcion').value,
         rutina: document.querySelector('#rutina').value,

@@ -7,6 +7,7 @@ export default {
     alias: {
       '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
       '~bootswatch': path.resolve(__dirname, 'node_modules/bootswatch'),
+      '@': path.resolve(__dirname, 'src'), // Alias para la carpeta src
     }
   },
   build: {
@@ -32,5 +33,13 @@ publicDir: 'assets',
   server: {
     /*port: 8080,*/
     hot: true
-  }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+    
+      }
+    }
+  },
+  assetsInclude: ['**/*.jpg', '**/*.woff', '**/*.woff2'], // Incluir tipos de archivos específicos
 }

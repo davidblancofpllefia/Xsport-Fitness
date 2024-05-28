@@ -1,4 +1,5 @@
 import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
+import { ls } from '../componentes/funciones'
 
 export default {
   template: `
@@ -15,6 +16,8 @@ export default {
           <img src="images/imagenVacia.png" alt="" class="img-fluid" />
           <label class="form-label mt-2" for="urlImagen"><strong>URL imagen:</strong></label>
           <input id="urlImagen" type="text" class="form-control" value="http://enlaceImagen.com" />
+          <label class="form-label mt-2" for="urlGif"><strong>URL GIF:</strong></label>
+          <input id="urlGif" type="text" class="form-control" value="http://enlaceImagen.com" />
       </div>
       <div class="col-12 col-md-8">
           <!-- Formulario nuevo ejercicio -->
@@ -62,7 +65,16 @@ export default {
 </div>
 
   `,
-  script: () => {
+  script: () => { //HICE EL BOTON VOLVER EN MAIN DIRECTAMENTE SI NO VA HACERLO AQUI Y LUEGO EL MERGE IRA
+    // Obtiene la información del usuario
+    const usuario = ls.getUsuario();
+
+    // Verifica si el usuario no está autenticado o es un usuario registrado
+    if (!usuario || usuario.rol === 'registrado') {
+     // Redirige a la página de registro
+     window.location = '#/home';
+     return;
+   }
     // Captura el formulario
     const formulario = document.querySelector('#formularioNuevoEjercicio');
 
@@ -87,6 +99,7 @@ export default {
     async function enviaDatos() {
       const ejercicioNuevo = {
         foto: document.querySelector('#urlImagen').value,
+        gif: document.querySelector('#urlGif').value,
         titulo: document.querySelector('#nombreEjercicio').value,
         descripcion: document.querySelector('#descripcion').value,
         rutina: document.querySelector('#rutina').value,

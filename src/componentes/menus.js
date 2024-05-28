@@ -20,13 +20,10 @@ const menuRol = {
   `,
   templateRegistrado: // html
   `
- <!-- <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-    <li class="nav-item">
-      <a class="nav-link active router-link" aria-current="page" href="#/proyectos">PROYECTOS</a>
-    </li>
-  </ul>-->
+  
+  
   `,
-  templateDesarrollador: // html
+  templateEntrenador: // html
   `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item">
@@ -85,7 +82,7 @@ const menuUsuario = {
     </li>
   </ul>
   `,
-  templateDesarrollador: // html
+  templateEntrenador: // html
   `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item dropdown">
@@ -134,6 +131,7 @@ const menuUsuario = {
         aria-expanded="false"
       >
         <img id="avatarMenu" src="images/avatar.svg" alt="" width="25" />
+        
       </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
         <li id="emailUserMenu" class="text-light text-end p-2 small">

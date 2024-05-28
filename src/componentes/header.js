@@ -44,11 +44,11 @@ export const header = {
         // menú usuario
         document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateRegistrado
         break
-      case 'desarrollador':
+      case 'entrenador':
         // menú rol
-        document.querySelector('#menuRol').innerHTML = menuRol.templateDesarrollador
+        document.querySelector('#menuRol').innerHTML = menuRol.templateEntrenador
         // menú usuario
-        document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateDesarrollador
+        document.querySelector('#menuUsuario').innerHTML = menuUsuario.templateEntrenador
         break
       case 'admin':
         // menú rol
