@@ -91,6 +91,10 @@ export default {
       }
     });
 
+    document.getElementById('botonVolver').addEventListener('click', () => {
+      window.location = '#/home';
+    });
+
     // Función para enviar los datos a la base de datos utilizando Supabase
     async function enviaDatos() {
       const ejercicioNuevo = {

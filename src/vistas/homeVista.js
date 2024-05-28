@@ -3,14 +3,14 @@ import { ls } from '../componentes/funciones'
 
 
 export default {
-  template: `
+  template: //html
+  `
   <div class="imagenFondo d-flex align-items-center">
   <div class="container">
       <div class="textoInicio bg-light p-4 bg-opacity-75">
           <h1 class="fw-bolder my-3">¡Bienvenido!</h1>
           <p class="fw-normal">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, blanditiis asperiores adipisci enim repellendus numquam officia temporibus pariatur dolorum laborum officiis iure eum qui aliquid error vitae, consequatur ipsum exercitationem!
-          </p>
+          ¡Bienvenido a Xsport Fitness! Aquí encontrarás una amplia variedad de ejercicios para mejorar tu salud y bienestar. Explora nuestra colección de rutinas de ejercicios diseñadas para ayudarte a alcanzar tus objetivos de fitness.
       </div>
   </div>
 </div>
