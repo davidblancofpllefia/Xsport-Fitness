@@ -18,13 +18,13 @@ export default {
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="emailLogin" class="form-label text-primary">Email:</label>
-                            <input id="emailLogin" name="email" value="macximun3@gmail.com" required type="email" class="form-control" />
+                            <input id="emailLogin" name="email" placeholder="ejemplo@gmail.com" required type="email" class="form-control" />
                             <div class="invalid-feedback">El formato del email no es correcto</div>
                         </div>
                         <!-- Contraseña -->
                         <div class="mb-3">
                             <label for="passLogin" class="form-label text-primary">Contraseña:</label>
-                            <input value="prueba123" id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
+                            <input id="passLogin" name="password" required minlength="6" type="password" class="form-control" />
                             <div class="invalid-feedback">La contraseña debe tener como mínimo 6 caracteres</div>
                         </div>
                         <!-- Recordar contraseña -->
