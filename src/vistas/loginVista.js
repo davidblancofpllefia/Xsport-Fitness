@@ -93,8 +93,8 @@ console.log(`Bienvenido, ${nombreUsuario} ${apellidosUsuario}!`);
           case 'registrado':
             menuUsuarioContainer.innerHTML = menuUsuario.templateRegistrado;
             break;
-          case 'desarrollador':
-            menuUsuarioContainer.innerHTML = menuUsuario.templateDesarrollador;
+          case 'entrenador':
+            menuUsuarioContainer.innerHTML = menuUsuario.templateEntrenador;
             break;
           case 'admin':
             menuUsuarioContainer.innerHTML = menuUsuario.templateAdmin;

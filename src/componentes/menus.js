@@ -23,7 +23,7 @@ const menuRol = {
   
   
   `,
-  templateDesarrollador: // html
+  templateEntrenador: // html
   `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item">
@@ -82,7 +82,7 @@ const menuUsuario = {
     </li>
   </ul>
   `,
-  templateDesarrollador: // html
+  templateEntrenador: // html
   `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item dropdown">
