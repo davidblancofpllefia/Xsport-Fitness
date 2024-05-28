@@ -6,7 +6,7 @@ export default {
   template: // html
   `
   <div class="container">
-  <h1 class="mt-5">Proyectos</h1>
+  <h1 class="mt-5">Ejercicios</h1>
   <div class="row mt-5">
     <div class="col-12">
       <!--nav-tabs-->
@@ -16,16 +16,11 @@ export default {
           <button 
             class="selectorFicha fichaProyectos nav-link w-100 active"
           >
-            Todos los proyectos
+            Todos los ejercicios
           </button>
         </li>
         <!--Etiqueta Mis proyectos-->
         <li id="pestanyaMisProyectos" class="nav-item w-50">
-          <button 
-            class="selectorFicha fichaMisProyectos nav-link w-100"
-          >
-            Mis proyectos
-          </button>
         </li>
       </ul>
     </div>
@@ -34,14 +29,9 @@ export default {
     <div class="row">
       <div class="col-12 col-sm-4 mb-3">
       <!-- Boton para subir proyectos -->
-        <a id="botonSubirProyecto" href="#/proyectoNuevo" class="btn btn-primary w-100 router-link">Subir proyecto</a>
+        <a id="botonSubirProyecto" href="#/proyectoNuevo" class="btn btn-primary w-100 router-link">Subir ejercicio</a>
       </div>
       <div class="d-flex col-12 col-sm-8 mb-3">
-        <!-- Botones para alternar entre vista de tabla o de tarjetas -->
-        <button class="vistaTabla btn btn-secondary me-2 bi bi-list">
-        </button>
-        <button class="vistaTarjetas btn btn-secondary me-2 bi bi-grid-3x3-gap ">
-        </button>
         <!-- Buscador -->
         <div class="input-group flex-nowrap">
           <span class="input-group-text" id="addon-wrapping"
@@ -61,9 +51,6 @@ export default {
         </div>
       </div>
     </div>
-    
-   
-    
   </div>
 </div>
 <div class="container d-flex flex-wrap mt-5 col-sm-12" id="ejerciciosContainer">

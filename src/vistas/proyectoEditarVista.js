@@ -3,7 +3,8 @@ import { ls } from '../componentes/funciones'
 
 
 export default {
-  template: `
+  template: //html
+  `
     <div class="container">
       <h1 class="mt-5">Editar Ejercicio</h1>
       <div class="d-flex justify-content-end">

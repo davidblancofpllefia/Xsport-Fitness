@@ -2,7 +2,8 @@ import { supabase } from '../bd/supabase'; // Importa tu instancia de Supabase
 import { ls } from '../componentes/funciones'
 
 export default {
-  template: `
+  template: //html
+  `
   <div class="container">
   <h1 class="mt-5">Nuevo Ejercicio</h1>
   <div class="d-flex justify-content-end">
