@@ -57,8 +57,15 @@ export default {
   ${editarImagenPerfil.template} 
   `,
   script: async () => {
-    // Capturamos los datos del usuario logueado
-    const usuario = ls.getUsuario();
+      // Obtiene la información del usuario
+ const usuario = ls.getUsuario();
+
+ // Verifica si el usuario no está autenticado o es un usuario registrado
+ if (!usuario || usuario.rol === 'registrado' || usuario.rol === 'entrenador') {
+  // Redirige a la página de registro
+  window.location = '#/home';
+  return;
+};
   
     // Función para obtener y pintar la tabla de usuarios
     async function obtenerUsuarios() {
